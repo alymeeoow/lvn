@@ -1,0 +1,442 @@
+/* Header.css - Main header styles */
+
+/* Reset & Base Styles */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --bottom-nav-height: 74px;
+  --safe-area-bottom: env(safe-area-inset-bottom, 0px);
+  --nav-icon-size: 22px;
+  --nav-label-size: 12px;
+  --nav-item-padding: 0.6rem;
+  --nav-item-gap: 0.3rem;
+  --header-height: 80px; /* Increased from 64px */
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: var(--text-dark);
+  padding-bottom: calc(var(--bottom-nav-height) + var(--safe-area-bottom));
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--background);
+  line-height: 1.5;
+}
+
+/* Header Styles - Professional - BIGGER HEADER */
+.header {
+  background: var(--background-card);
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+ 
+  z-index: 100;
+  box-shadow: var(--shadow-sm);
+  height: var(--header-height); /* Using variable */
+}
+
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 100%;
+}
+
+/* Logo Section - Adjusted for bigger header */
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 1rem; /* Slightly increased gap */
+}
+
+.logo-container {
+  width: 46px; /* Increased from 40px */
+  height: 46px; /* Increased from 40px */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--primary-gradient);
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(58, 123, 213, 0.15);
+  transition: all 0.2s ease;
+  overflow: hidden;
+}
+
+.logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.logo-name {
+  font-size: 1.35rem; /* Increased from 1.2rem */
+  font-weight: 600;
+  color: var(--gray-800);
+  letter-spacing: -0.2px;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Desktop Navigation - Adjusted spacing */
+.desktop-nav {
+  display: none;
+}
+
+.desktop-nav ul {
+  display: flex;
+  list-style: none;
+  gap: 3rem;
+}
+
+.desktop-nav a {
+  text-decoration: none;
+  color: var(--gray-600);
+  font-weight: 500;
+  padding: 0.6rem 0;
+  position: relative;
+  transition: all 0.2s ease;
+  font-size: 1rem; /* Slightly increased */
+  font-family: 'Inter', sans-serif;
+}
+
+.desktop-nav a:hover {
+  color: var(--primary-color);
+}
+
+.desktop-nav a.active {
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+.desktop-nav a.active::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--primary-color);
+  border-radius: 2px;
+}
+
+/* Bottom Navigation - Keep same size */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--background-card);
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0.6rem 0.3rem;
+  padding-bottom: calc(0.6rem + var(--safe-area-bottom));
+  height: calc(var(--bottom-nav-height) + var(--safe-area-bottom));
+  z-index: 1000;
+  box-shadow: var(--shadow-nav);
+}
+
+.bottom-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  padding: var(--nav-item-padding) 0.25rem;
+  color: var(--gray-600);
+  font-size: var(--nav-label-size);
+  gap: var(--nav-item-gap);
+  cursor: pointer;
+  flex: 1;
+  transition: all 0.2s ease;
+  border-radius: 6px;
+  min-width: 0;
+  position: relative;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+  max-width: 84px;
+  min-height: 56px;
+  white-space: nowrap;
+  overflow: visible;
+  text-overflow: clip;
+  font-family: 'Inter', sans-serif;
+}
+
+.bottom-nav-item:active {
+  background: rgba(58, 123, 213, 0.05);
+}
+
+.bottom-nav-item.active {
+  color: var(--primary-color);
+}
+
+.bottom-nav-item.active .bottom-nav-icon {
+  color: var(--primary-color);
+}
+
+.bottom-nav-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--nav-icon-size);
+  transition: all 0.2s ease;
+  color: var(--gray-600);
+  min-width: 22px;
+  font-family: 'Inter', sans-serif;
+}
+
+.bottom-nav-label {
+  font-size: var(--nav-label-size);
+  font-weight: 500;
+  letter-spacing: 0.05px;
+  white-space: nowrap;
+  overflow: visible;
+  text-overflow: clip;
+  max-width: 100%;
+  transition: all 0.2s ease;
+  color: var(--gray-600);
+  font-family: 'Inter', sans-serif;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.bottom-nav-item.active .bottom-nav-label {
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+/* Responsive Design - MOBILE MODE */
+@media (max-width: 767px) {
+  .mobile-only {
+    display: flex !important;
+  }
+  
+  .desktop-only {
+    display: none !important;
+  }
+  
+  .desktop-nav {
+    display: none;
+  }
+  
+  /* Header adjustments for mobile - keep it bigger */
+  .header {
+    height: 72px; /* Increased from 60px */
+  }
+  
+  .header-top {
+    padding: 0 1.2rem;
+  }
+  
+  .logo-name {
+    font-size: 1.25rem; /* Increased from 1.1rem */
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  .logo-container {
+    width: 42px; /* Increased from 36px */
+    height: 42px; /* Increased from 36px */
+  }
+  
+  /* Bottom nav stays the same size */
+  .bottom-nav {
+    padding: 0.5rem 0.2rem;
+    height: calc(70px + var(--safe-area-bottom));
+  }
+  
+  .bottom-nav-item {
+    padding: 0.5rem 0.2rem;
+    max-width: 80px;
+    min-height: 54px;
+    gap: 0.25rem;
+  }
+  
+  .bottom-nav-icon {
+    font-size: 20px;
+    min-width: 20px;
+  }
+  
+  .bottom-nav-label {
+    font-size: 11.5px;
+    font-weight: 500;
+    max-width: 75px;
+    word-wrap: break-word;
+  }
+}
+
+/* Tablet */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .mobile-only {
+    display: none !important;
+  }
+  
+  .desktop-only {
+    display: flex !important;
+  }
+  
+  .desktop-nav {
+    display: block;
+  }
+  
+  .bottom-nav {
+    display: none;
+  }
+  
+  body {
+    padding-bottom: 0;
+  }
+  
+  .header {
+    height: 84px; /* Increased from 68px */
+  }
+  
+  .header-top {
+    padding: 0 2rem;
+  }
+  
+  .logo-name {
+    font-size: 1.4rem; /* Increased from 1.15rem */
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  .logo-container {
+    width: 48px; /* Increased from 42px */
+    height: 48px; /* Increased from 42px */
+  }
+}
+
+/* Desktop */
+@media (min-width: 768px) {
+  .mobile-only {
+    display: none !important;
+  }
+  
+  .desktop-only {
+    display: flex !important;
+  }
+  
+  .desktop-nav {
+    display: block;
+  }
+  
+  .bottom-nav {
+    display: none;
+  }
+  
+  body {
+    padding-bottom: 0;
+  }
+  
+  .header {
+    height: 88px; /* Increased from 70px */
+  }
+  
+  .header-top {
+    padding: 0 2.5rem;
+  }
+  
+  .logo-name {
+    font-size: 1.45rem; /* Increased from 1.25rem */
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  .logo-container {
+    width: 50px; /* Increased from 42px */
+    height: 50px; /* Increased from 42px */
+  }
+}
+
+/* Large Desktop */
+@media (min-width: 1024px) {
+  .header-top {
+    padding: 0 3rem;
+  }
+  
+  .desktop-nav ul {
+    gap: 3.5rem;
+  }
+  
+  .logo-name {
+    font-size: 1.5rem; /* Increased from 1.3rem */
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  .logo-container {
+    width: 52px; /* Optional: make it slightly bigger on large screens */
+    height: 52px;
+  }
+}
+
+/* Extra small screens */
+@media (max-width: 320px) {
+  .bottom-nav {
+    height: calc(68px + var(--safe-area-bottom));
+  }
+  
+  .bottom-nav-item {
+    max-width: 72px;
+    padding: 0.4rem 0.15rem;
+  }
+  
+  .bottom-nav-label {
+    font-size: 11px;
+    max-width: 68px;
+  }
+  
+  .bottom-nav-icon {
+    font-size: 18px;
+  }
+}
+
+/* iPhone Notch/Dynamic Island Support */
+@supports (padding: max(0px)) {
+  .bottom-nav {
+    padding-bottom: max(0.5rem, var(--safe-area-bottom));
+  }
+}
+
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+  .bottom-nav-item:active {
+    background: rgba(77, 140, 228, 0.05);
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.bottom-nav-item:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* Touch optimization */
+@media (pointer: coarse) {
+  .bottom-nav-item {
+    min-height: 58px;
+  }
+  
+  .bottom-nav {
+    height: calc(72px + var(--safe-area-bottom));
+  }
+  
+  .bottom-nav-label {
+    font-size: 12px;
+  }
+}

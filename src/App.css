@@ -1,0 +1,183 @@
+/* colors.css - Logo-Matching Professional Color Variables */
+
+:root {
+  /* Logo-Inspired Color Scheme */
+  --logo-black: #000100;         /* Deep black from logo */
+  --logo-gray-medium: #383938;   /* Dark charcoal from logo */
+  --logo-gray-light: #b9b8b8;    /* Light gray from logo */
+  --logo-gray-pale: #d5d4d5;     /* Pale gray from logo */
+  
+  /* Primary colors derived from logo */
+  --primary-color: #383938;      /* Dark charcoal - Professional & grounded */
+  --primary-dark: #000100;       /* Deep black */
+  --primary-light: #5a5a5a;      /* Medium gray */
+  --primary-gradient: linear-gradient(135deg, #383938 0%, #5a5a5a 100%);
+  
+  /* Secondary accent colors from logo grays */
+  --secondary-light: #b9b8b8;    /* Light gray accent */
+  --secondary-pale: #d5d4d5;     /* Pale gray accent */
+  --accent-silver: #e8e8e8;      /* Derived silver */
+  
+  /* Status colors - Muted to match logo */
+--success-color: #22c55e;        /* soft green */
+  --warning-color: #b8a88b;      /* Muted warm beige */
+  --danger-color: #b88c8c;       /* Muted dusty rose */
+  --info-color: #8c9bb8;         /* Muted slate blue */
+  
+  /* Sophisticated Gray Scale - Extended from logo colors */
+  --gray-950: #000100;           /* Logo black */
+  --gray-900: #1a1a1a;           /* Near black */
+  --gray-800: #2d2d2d;           /* Dark gray */
+  --gray-700: #383938;           /* Logo dark charcoal */
+  --gray-600: #5a5a5a;           /* Medium gray */
+  --gray-500: #7a7a7a;           /* Warm gray */
+  --gray-400: #9a9a9a;           /* Light warm gray */
+  --gray-300: #b9b8b8;           /* Logo light gray */
+  --gray-200: #d5d4d5;           /* Logo pale gray */
+  --gray-100: #e8e8e8;           /* Very pale gray */
+  --gray-50: #f5f5f5;            /* Off-white */
+  --gray-logo: #b9b8b8;          /* Logo gray for text */
+  
+  /* Text Colors */
+  --text-dark: var(--gray-950);          /* Logo black */
+  --text-medium: var(--gray-700);        /* Logo charcoal */
+  --text-light: var(--gray-400);         /* Medium gray */
+  --text-lighter: var(--gray-300);       /* Logo light gray */
+  --text-white: #ffffff;
+  --text-primary: var(--primary-color);
+  
+  /* Background Colors - Monochromatic elegance */
+  --background: #fafafa;                 /* Clean white with hint of warmth */
+  --background-secondary: #f5f5f5;       /* Very subtle gray background */
+  --background-card: #ffffff;            /* Pure white cards */
+  --background-subtle: #f8f8f8;          /* For subtle contrast */
+  --background-gray: #f0f0f0;            /* Light gray background option */
+  
+  /* Border Colors - From logo palette */
+  --border-color: var(--gray-200);       /* Logo pale gray for borders */
+  --border-light: var(--gray-100);       /* Very light border */
+  --border-medium: var(--gray-300);      /* Logo light gray */
+  --border-dark: var(--gray-700);        /* Logo charcoal for emphasis */
+  --border-logo: var(--logo-gray-light); /* Logo gray for special borders */
+  
+  /* Shadow Colors - Subtle & elegant */
+  --shadow-sm: 0 1px 2px rgba(0, 1, 0, 0.05);        /* Using logo black tint */
+  --shadow: 0 2px 4px rgba(56, 57, 56, 0.1);         /* Using logo charcoal tint */
+  --shadow-md: 0 4px 8px rgba(56, 57, 56, 0.12);     /* Medium shadow */
+  --shadow-lg: 0 8px 16px rgba(56, 57, 56, 0.15);    /* Large shadow */
+  --shadow-xl: 0 12px 24px rgba(56, 57, 56, 0.18);   /* Extra large shadow */
+  --shadow-nav: 0 -1px 3px rgba(56, 57, 56, 0.08);   /* Navigation shadow */
+  
+  /* Overlay Colors */
+  --overlay-light: rgba(255, 255, 255, 0.9);
+  --overlay-dark: rgba(0, 1, 0, 0.4);                /* Using logo black */
+  --overlay-primary: rgba(56, 57, 56, 0.1);          /* Using logo charcoal */
+  
+  /* Hover/Active States */
+  --hover-light: rgba(217, 216, 217, 0.1);           /* Lightened logo pale gray */
+  --active-light: rgba(185, 184, 184, 0.15);         /* Logo light gray tint */
+  
+  /* Button Colors */
+  --button-primary: var(--primary-color);
+  --button-primary-hover: var(--gray-800);
+  --button-secondary: var(--gray-200);
+  --button-secondary-hover: var(--gray-300);
+  --button-text: #ffffff;
+  
+  /* Transition Durations */
+  --transition-fast: 150ms;
+  --transition-normal: 250ms;
+  --transition-slow: 350ms;
+}
+
+/* Dark Mode - Sophisticated dark theme */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Dark background colors */
+    --background: #0a0a0a;               /* Near black */
+    --background-secondary: #121212;     /* Dark gray */
+    --background-card: #1a1a1a;          /* Card background */
+    --background-subtle: #161616;        /* Subtle dark background */
+    --background-gray: #202020;          /* Dark gray background */
+    
+    /* Inverted gray scale for dark mode */
+    --gray-950: #f5f5f5;                 /* Light text */
+    --gray-900: #e8e8e8;                 /* Lighter text */
+    --gray-800: #d5d4d5;                 /* Logo pale gray becomes text */
+    --gray-700: #b9b8b8;                 /* Logo light gray becomes medium text */
+    --gray-600: #9a9a9a;                 /* Medium light gray */
+    --gray-500: #7a7a7a;                 /* Medium gray */
+    --gray-400: #5a5a5a;                 /* Dark gray */
+    --gray-300: #383938;                 /* Logo charcoal becomes light gray */
+    --gray-200: #2d2d2d;                 /* Darker gray */
+    --gray-100: #1a1a1a;                 /* Very dark gray */
+    --gray-50: #0a0a0a;                  /* Near black */
+    --gray-logo: #b9b8b8;                /* Logo gray stays same */
+    
+    /* Text colors for dark mode */
+    --text-dark: var(--gray-900);        /* Light text */
+    --text-medium: var(--gray-700);      /* Logo light gray text */
+    --text-light: var(--gray-500);       /* Medium gray text */
+    --text-lighter: var(--gray-400);     /* Dark gray text */
+    
+    /* Primary colors adjusted for dark mode */
+    --primary-color: #b9b8b8;            /* Logo light gray becomes primary */
+    --primary-dark: #d5d4d5;             /* Logo pale gray */
+    --primary-light: #ffffff;            /* White */
+    --primary-gradient: linear-gradient(135deg, #b9b8b8 0%, #d5d4d5 100%);
+    
+    /* Secondary colors for dark mode */
+    --secondary-light: #383938;          /* Logo charcoal becomes secondary */
+    --secondary-pale: #5a5a5a;           /* Medium gray */
+    
+    /* Border colors for dark mode */
+    --border-color: var(--gray-200);     /* Dark gray borders */
+    --border-light: var(--gray-100);     /* Very dark borders */
+    --border-medium: var(--gray-300);    /* Logo charcoal borders */
+    --border-dark: var(--gray-700);      /* Logo light gray borders */
+    
+    /* Shadow adjustments for dark mode */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+    --shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.35);
+    --shadow-xl: 0 12px 24px rgba(0, 0, 0, 0.4);
+    --shadow-nav: 0 -1px 3px rgba(0, 0, 0, 0.25);
+    
+    /* Overlay colors for dark mode */
+    --overlay-light: rgba(26, 26, 26, 0.9);
+    --overlay-dark: rgba(0, 0, 0, 0.6);
+    --overlay-primary: rgba(185, 184, 184, 0.2);
+    
+    /* Hover/Active States for dark mode */
+    --hover-light: rgba(56, 57, 56, 0.3);    /* Logo charcoal tint */
+    --active-light: rgba(185, 184, 184, 0.25); /* Logo light gray tint */
+    
+    /* Button Colors for dark mode */
+    --button-primary: var(--primary-color);
+    --button-primary-hover: var(--gray-800);
+    --button-secondary: var(--gray-300);
+    --button-secondary-hover: var(--gray-400);
+    --button-text: #000000;                  /* Black text on light buttons */
+  }
+}
+
+/* Accessibility: High contrast mode */
+@media (prefers-contrast: high) {
+  :root {
+    --primary-color: #000000;                /* Pure black */
+    --text-dark: #000000;
+    --border-color: #000000;
+    --button-primary: #000000;
+    --button-text: #ffffff;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --transition-fast: 0ms;
+    --transition-normal: 0ms;
+    --transition-slow: 0ms;
+  }
+}

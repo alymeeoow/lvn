@@ -1,0 +1,298 @@
+/* LoginButton.css - Clean login button styles */
+
+.login-btn {
+  /* Base styles */
+  background: var(--primary-color);
+  color: var(--text-white);
+  border: none;
+  padding: 0.85rem 2rem;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  font-size: 1rem;
+  letter-spacing: 0.1px;
+  font-family: 'Inter', sans-serif;
+  white-space: nowrap;
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  line-height: 1;
+  user-select: none;
+  box-shadow: 0 2px 8px rgba(58, 123, 213, 0.15);
+}
+
+/* Simple hover - just darkens the button */
+.login-btn:hover {
+  background: color-mix(in srgb, var(--primary-color) 90%, black 10%);
+  box-shadow: 0 4px 12px rgba(58, 123, 213, 0.2);
+}
+
+/* Active state */
+.login-btn:active {
+  background: color-mix(in srgb, var(--primary-color) 80%, black 20%);
+  transform: scale(0.98);
+  box-shadow: 0 2px 6px rgba(58, 123, 213, 0.15);
+}
+
+/* Focus state for accessibility */
+.login-btn:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+.login-btn:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.login-btn:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* Disabled state */
+.login-btn:disabled {
+  background: var(--gray-300);
+  color: var(--gray-500);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+  opacity: 0.6;
+}
+
+.login-btn:disabled:hover {
+  background: var(--gray-300);
+  box-shadow: none;
+}
+
+/* Small variant */
+.login-btn-small {
+  padding: 0.65rem 1.5rem;
+  font-size: 0.9rem;
+  border-radius: 8px;
+}
+
+/* Large variant */
+.login-btn-large {
+  padding: 1rem 2.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 12px;
+}
+
+/* Full width variant */
+.login-btn-full {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* Outline variant - Clean hover */
+.login-btn-outline {
+  background: transparent;
+  color: var(--primary-color);
+  border: 2px solid var(--primary-color);
+  box-shadow: none;
+}
+
+.login-btn-outline:hover {
+  background: rgba(58, 123, 213, 0.08);
+  color: var(--primary-color);
+  border-color: color-mix(in srgb, var(--primary-color) 90%, black 10%);
+}
+
+.login-btn-outline:active {
+  background: rgba(58, 123, 213, 0.12);
+  border-color: color-mix(in srgb, var(--primary-color) 80%, black 20%);
+  transform: scale(0.98);
+}
+
+/* Ghost variant */
+.login-btn-ghost {
+  background: transparent;
+  color: var(--primary-color);
+  border: 2px solid transparent;
+  box-shadow: none;
+}
+
+.login-btn-ghost:hover {
+  background: rgba(58, 123, 213, 0.08);
+  color: var(--primary-color);
+}
+
+.login-btn-ghost:active {
+  background: rgba(58, 123, 213, 0.12);
+  transform: scale(0.98);
+}
+
+/* With icon */
+.login-btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.login-btn-icon svg {
+  width: 1.1em;
+  height: 1.1em;
+  transition: transform 0.2s ease;
+}
+
+.login-btn-icon:hover svg {
+  transform: translateX(2px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 767px) {
+  .login-btn {
+    padding: 0.75rem 1.75rem;
+    font-size: 0.95rem;
+    border-radius: 9px;
+  }
+  
+  .login-btn-small {
+    padding: 0.55rem 1.25rem;
+    font-size: 0.85rem;
+    border-radius: 7px;
+  }
+  
+  .login-btn-large {
+    padding: 0.9rem 2.25rem;
+    font-size: 1.05rem;
+    border-radius: 11px;
+  }
+}
+
+/* Dark mode adjustments - simple darkening */
+@media (prefers-color-scheme: dark) {
+  .login-btn {
+    background: var(--primary-color);
+  }
+  
+  .login-btn:hover {
+    background: color-mix(in srgb, var(--primary-color) 85%, black 15%);
+  }
+  
+  .login-btn:active {
+    background: color-mix(in srgb, var(--primary-color) 75%, black 25%);
+  }
+  
+  .login-btn-outline:hover {
+    background: rgba(77, 140, 228, 0.15);
+    border-color: color-mix(in srgb, var(--primary-color) 85%, black 15%);
+  }
+  
+  .login-btn-ghost:hover {
+    background: rgba(77, 140, 228, 0.15);
+  }
+}
+
+/* Fallback for browsers that don't support color-mix() */
+@supports not (background: color-mix(in srgb, black, white)) {
+  .login-btn:hover {
+    background: var(--primary-dark);
+  }
+  
+  .login-btn:active {
+    background: var(--primary-darker);
+  }
+  
+  .login-btn-outline:hover {
+    border-color: var(--primary-dark);
+  }
+  
+  .login-btn-outline:active {
+    border-color: var(--primary-darker);
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    .login-btn:hover {
+      background: var(--primary-dark);
+    }
+    
+    .login-btn:active {
+      background: var(--primary-darker);
+    }
+    
+    .login-btn-outline:hover {
+      border-color: var(--primary-dark);
+    }
+  }
+}
+
+/* Animation for loading state */
+.login-btn-loading {
+  position: relative;
+  color: transparent !important;
+  pointer-events: none;
+  opacity: 0.9;
+}
+
+.login-btn-loading::after {
+  content: '';
+  position: absolute;
+  width: 1.2em;
+  height: 1.2em;
+  top: 50%;
+  left: 50%;
+  margin-left: -0.6em;
+  margin-top: -0.6em;
+  border: 2px solid var(--text-white);
+  border-radius: 50%;
+  border-right-color: transparent;
+  border-top-color: transparent;
+  animation: spin 0.8s linear infinite;
+}
+
+.login-btn-outline.login-btn-loading::after {
+  border-color: var(--primary-color);
+  border-right-color: transparent;
+  border-top-color: transparent;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Success state */
+.login-btn-success {
+  background: var(--success-color);
+}
+
+.login-btn-success:hover {
+  background: color-mix(in srgb, var(--success-color) 90%, black 10%);
+}
+
+/* Error state */
+.login-btn-error {
+  background: var(--error-color);
+}
+
+.login-btn-error:hover {
+  background: color-mix(in srgb, var(--error-color) 90%, black 10%);
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .login-btn {
+    transition: none;
+  }
+  
+  .login-btn:hover,
+  .login-btn:active {
+    transform: none;
+  }
+  
+  .login-btn-icon:hover svg {
+    transform: none;
+  }
+  
+  .login-btn-loading::after {
+    animation-duration: 1.5s;
+  }
+}
