@@ -1,49 +1,52 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { 
   FiHome, 
   FiGrid, 
   FiCalendar, 
   FiHelpCircle, 
-  FiUser
+  FiUser,
+  FiShoppingCart
 } from 'react-icons/fi';
 import '../../assets/styles/header.css';
+import { useCart } from '../context/cartContext';
 
 import logoImage from '../../assets/images/logo/mLogo.png'; 
-
 import LoginButton from '../ui/button';
 
 const Header = () => {
-  const [activeTab, setActiveTab] = useState('home');
+  const navigate = useNavigate();
+  const { cartCount, openCart } = useCart();
 
   const navItems = [
-    { id: 'home', label: 'Home', icon: <FiHome /> },
-    { id: 'categories', label: 'Categories', icon: <FiGrid /> },
-    { id: 'bookings', label: 'Bookings', icon: <FiCalendar /> },
-    { id: 'faq', label: 'FAQ', icon: <FiHelpCircle /> },
-    { id: 'login', label: 'Log In', icon: <FiUser /> },
+    { path: '/', label: 'Home', icon: <FiHome /> },
+    { path: '/categories', label: 'Categories', icon: <FiGrid /> },
+    { path: '/bookings', label: 'Bookings', icon: <FiCalendar /> },
+    { path: '/faq', label: 'FAQ', icon: <FiHelpCircle /> },
+    { path: '/login', label: 'Log In', icon: <FiUser /> },
   ];
 
-  const handleLogin = () => {
+  const handleLoginClick = () => {
     console.log('Login clicked');
-    // Add your login logic here
+    navigate('/login');
   };
 
-  const handleNavClick = (itemId) => {
-    if (itemId === 'login') {
-      handleLogin();
-    } else {
-      setActiveTab(itemId);
-    }
-  };
+  // REMOVED CART from here. It is now only in the top header.
+  const mobileNavItems = [
+    navItems[0], // Home
+    navItems[1], // Categories
+    navItems[2], // Bookings
+    navItems[3], // FAQ
+    navItems[4], // Login
+  ];
 
   return (
     <>
-      {/* Top Header - Just Logo */}
+      {/* Top Header */}
       <header className="header">
         <div className="header-top">
           <div className="logo-section">
             <div className="logo-container">
-              {/* Replace SVG with image logo */}
               <img 
                 src={logoImage} 
                 alt="Aaron Arredondo Logo" 
@@ -53,44 +56,59 @@ const Header = () => {
             <span className="logo-name">Aaron Arredondo</span>
           </div>
           
-          {/* Desktop Navigation - Only shows on desktop */}
+          {/* Desktop Navigation Links */}
           <nav className="desktop-nav">
             <ul>
-              {navItems.slice(0, 4).map((item) => ( // First 4 items only for desktop
-                <li key={item.id}>
-                  <a 
-                    href={`#${item.id}`}
-                    className={activeTab === item.id ? 'active' : ''}
-                    onClick={() => setActiveTab(item.id)}
+              {navItems.slice(0, 4).map((item) => (
+                <li key={item.path}>
+                  <NavLink 
+                    to={item.path}
+                    className={({ isActive }) => isActive ? 'active' : ''}
                   >
                     {item.label}
-                  </a>
+                  </NavLink>
                 </li>
               ))}
             </ul>
           </nav>
 
-          {/* Use your separate LoginButton component */}
-          <LoginButton 
-            onClick={handleLogin}
-            className="desktop-only"
-          />
+          {/* Header Actions (Cart & Login) */}
+          {/* Renamed to header-actions to denote it works for mobile too */}
+          <div className="header-actions">
+            
+            {/* Cart Icon - NOW VISIBLE ON MOBILE (removed desktop-only class) */}
+            <button 
+              className="cart-icon-btn"
+              onClick={openCart}
+              aria-label={`Open cart (${cartCount} items)`}
+            >
+              <FiShoppingCart className="cart-icon" />
+              {cartCount > 0 && (
+                <span className="cart-badge">{cartCount}</span>
+              )}
+            </button>
+            
+            {/* Login Button - Still hidden on mobile top bar */}
+            <LoginButton 
+              onClick={handleLoginClick}
+              className="desktop-only"
+            />
+          </div>
         </div>
       </header>
 
       {/* Bottom Navigation Bar - Mobile Only */}
       <nav className="bottom-nav mobile-only" aria-label="Main navigation">
-        {navItems.map((item) => (
-          <button
-            key={item.id}
-            className={`bottom-nav-item ${activeTab === item.id ? 'active' : ''}`}
-            onClick={() => handleNavClick(item.id)}
+        {mobileNavItems.map((item) => (
+          <NavLink
+            key={item.path}
+            to={item.path}
+            className={({ isActive }) => `bottom-nav-item ${isActive ? 'active' : ''}`}
             aria-label={item.label}
-            aria-current={activeTab === item.id ? 'page' : undefined}
           >
             <span className="bottom-nav-icon" aria-hidden="true">{item.icon}</span>
             <span className="bottom-nav-label">{item.label}</span>
-          </button>
+          </NavLink>
         ))}
       </nav>
     </>

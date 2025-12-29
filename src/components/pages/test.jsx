@@ -5,8 +5,6 @@ import { useCart } from '../context/cartContext';
 import Lvn from "../../assets/images/logo/transparent.png"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { flushSync } from 'react-dom';
-import Swal from 'sweetalert2';
 
 import Button from '../ui/button';
 
@@ -232,18 +230,13 @@ const typeIcons = {
   'Nasal': <GiSpray />
 };
 
-// Create a completely static product card component
-const StaticProductCard = React.memo(({ 
-  product, 
-  onProductClick, 
-  onAddToCart,
-  cartStatus
-}) => {
+// Create a memoized product card component with unique key to prevent re-creation
+const ProductCard = React.memo(({ product, handleProductClick, handleAddToCart, isInCart, cartQuantity }) => {
   return (
-    <div className="product-card" data-product-id={product.id}>
+    <div className="product-card" key={`product-${product.id}`}>
       <div 
         className="card-image-container" 
-        onClick={() => onProductClick(product)}
+        onClick={() => handleProductClick(product)}
         style={{ cursor: 'pointer' }}
       >
         <img 
@@ -277,18 +270,15 @@ const StaticProductCard = React.memo(({
         </div>
         <Button
           type="button"
-          className={`add-button ${cartStatus?.isInCart ? 'in-cart' : ''}`}
-          onClick={(e) => {
-            e.stopPropagation();
-            onAddToCart(product, e);
-          }}
+          className={`add-button ${isInCart ? 'in-cart' : ''}`}
+          onClick={(e) => handleAddToCart(product, e)}
           style={{ 
             cursor: 'pointer'
           }}
         >
-          {cartStatus?.isInCart ? (
+          {isInCart ? (
             <>
-              <FiCheck /> In Cart ({cartStatus.quantity})
+              <FiCheck /> In Cart ({cartQuantity})
             </>
           ) : (
             <>
@@ -301,67 +291,7 @@ const StaticProductCard = React.memo(({
   );
 });
 
-StaticProductCard.displayName = 'StaticProductCard';
-
-const CategorySection = React.memo(function CategorySection({
-  category,
-  categoryRef,
-  carouselRef,
-  productCartStatus,
-  onProductClick,
-  onAddToCart,
-  scrollCarousel
-}) {
-  const categoryCartStatus = React.useMemo(() => {
-    const status = {};
-    category.products.forEach(product => {
-      status[product.id] = productCartStatus[product.id] || {
-        isInCart: false,
-        quantity: 0
-      };
-    });
-    return status;
-  }, [category.products, productCartStatus]);
-
-  return (
-    <section
-      className="category-section"
-      id={category.id}
-      ref={categoryRef}
-    >
-      <div className="category-carousel-container">
-        <button
-          className="carousel-button prev"
-          onClick={() => scrollCarousel(category.id, 'prev')}
-        >
-          <FiChevronLeft />
-        </button>
-
-        <div className="carousel-wrapper">
-          <div className="carousel-track" ref={carouselRef}>
-            {category.products.map(product => (
-              <div key={product.id} className="carousel-slide">
-                <StaticProductCard
-                  product={product}
-                  onProductClick={onProductClick}
-                  onAddToCart={onAddToCart}
-                  cartStatus={categoryCartStatus[product.id]}
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <button
-          className="carousel-button next"
-          onClick={() => scrollCarousel(category.id, 'next')}
-        >
-          <FiChevronRight />
-        </button>
-      </div>
-    </section>
-  );
-});
+ProductCard.displayName = 'ProductCard';
 
 const Homepage = () => {
   const { cartItems, addToCart } = useCart();
@@ -394,19 +324,22 @@ const Homepage = () => {
   // Store a single toast ID to replace previous toasts
   const toastIdRef = useRef(null);
   
-  // Store cart status per product
-  const [productCartStatus, setProductCartStatus] = useState({});
+  // Store scroll positions for each carousel - use a simple object
+  const carouselScrollPositions = useRef({});
   
-  // Initialize cart status
-  useEffect(() => {
-    const status = {};
-    cartItems.forEach(item => {
-      status[item.id] = {
-        isInCart: true,
-        quantity: item.quantity
-      };
-    });
-    setProductCartStatus(status);
+  // Use a flag to prevent restoring scroll on initial render
+  const isInitialRender = useRef(true);
+  
+  // Use a ref to track the last added product
+  const lastAddedProductRef = useRef(null);
+
+  const isProductInCart = useCallback((productId) => {
+    return cartItems.some(item => item.id === productId);
+  }, [cartItems]);
+
+  const getCartQuantity = useCallback((productId) => {
+    const item = cartItems.find(item => item.id === productId);
+    return item ? item.quantity : 0;
   }, [cartItems]);
 
   const handleProductClick = useCallback((product) => {
@@ -421,280 +354,44 @@ const Homepage = () => {
     document.body.style.overflow = 'auto';
   }, []);
 
-  const showAddToCartConfirmation = (product) => {
-    // Create responsive HTML with CSS classes instead of inline styles
-    const responsiveHtml = `
-      <div class="medical-assessment-steps">
-        <div class="assessment-step">
-          <div class="step-number">1</div>
-          <div class="step-content">
-            <h4 class="step-title">Answer a few questions</h4>
-            <p class="step-description">Tell us about your symptoms, health history, and treatment goals by completing a short medical questionnaire.</p>
-          </div>
-        </div>
-        <div class="step-divider"></div>
-        <div class="assessment-step">
-          <div class="step-number">2</div>
-          <div class="step-content">
-            <h4 class="step-title">Have a consult</h4>
-            <p class="step-description">Discuss your results and health goals with a licensed healthcare provider.</p>
-          </div>
-        </div>
-        <div class="step-divider"></div>
-        <div class="assessment-step">
-          <div class="step-number">3</div>
-          <div class="step-content">
-            <h4 class="step-title">Order your medication</h4>
-            <p class="step-description">If you qualify, you'll be able to order your medication and begin your treatment right away.</p>
-          </div>
-        </div>
-      </div>
-    `;
-    
-    Swal.fire({
-      title: 'Medical Assessment Required',
-      html: responsiveHtml,
-      confirmButtonText: 'Add to Cart',
-      confirmButtonColor: 'var(--primary-color, #383938)',
-      showCloseButton: true,
-      closeButtonHtml: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>',
-      width: '600px',
-      customClass: {
-        popup: 'custom-swal-popup',
-        title: 'custom-swal-title',
-        confirmButton: 'custom-swal-confirm-btn',
-        closeButton: 'custom-swal-close-btn'
-      },
-      didOpen: () => {
-        const container = document.querySelector('.swal2-container');
-        if (container) {
-          container.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
-          container.style.backdropFilter = 'blur(8px)';
-          container.style.webkitBackdropFilter = 'blur(8px)';
-        }
-        
-        const style = document.createElement('style');
-        style.textContent = `
-          /* Modal container */
-          .swal2-container {
-            backdrop-filter: blur(8px) !important;
-            -webkit-backdrop-filter: blur(8px) !important;
-            background-color: rgba(0, 0, 0, 0.3) !important;
-          }
-          
-          /* Modal popup */
-          .custom-swal-popup {
-            border-radius: 12px;
-            padding: 30px;
-            background: var(--background-card, #ffffff);
-            color: var(--text-dark, #1f2937);
-            width: auto !important;
-            max-width: min(600px, 95vw) !important;
-            max-height: 85vh;
-            overflow-y: auto;
-            margin: 0 20px;
-            box-sizing: border-box;
-          }
-          
-          /* Title */
-          .custom-swal-title {
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--text-dark, #1f2937);
-            text-align: center;
-            margin-bottom: 20px;
-            padding-right: 30px;
-            line-height: 1.3;
-          }
-          
-          /* Confirm button */
-          .custom-swal-confirm-btn {
-            width: 100%;
-            padding: 12px 30px;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 16px;
-            background: var(--primary-color, #383938) !important;
-            border: none !important;
-            margin-top: 10px;
-            transition: background-color 0.2s;
-          }
-          
-          .custom-swal-confirm-btn:hover {
-            background: var(--primary-dark, #2a2a2a) !important;
-          }
-          
-          /* Close button */
-          .custom-swal-close-btn {
-            width: 30px !important;
-            position: absolute;
-            right: 20px;
-            top: 20px;
-            color: var(--primary-color);
-            border: none;
-            background: transparent;
-            font-size: 20px;
-            cursor: pointer;
-            padding: 5px;
-            transition: color 0.2s;
-            z-index: 1001;
-          }
-          
-          .custom-swal-close-btn:hover {
-            color: var(--text-dark, #374151);
-          }
-          
-          /* Custom HTML content */
-          .medical-assessment-steps {
-            text-align: left;
-            padding: 20px 0;
-          }
-          
-          .assessment-step {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 20px;
-            position: relative;
-          }
-          
-          .step-number {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            background: var(--primary-color, #383938);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            margin-right: 15px;
-            flex-shrink: 0;
-            font-size: 14px;
-          }
-          
-          .step-content {
-            flex: 1;
-          }
-          
-          .step-title {
-            margin: 0 0 8px 0;
-            color: var(--text-dark, #1f2937);
-            font-size: 16px;
-            font-weight: 600;
-            line-height: 1.3;
-          }
-          
-          .step-description {
-            margin: 0;
-            color: var(--text-light, #6b7280);
-            font-size: 14px;
-            line-height: 1.5;
-          }
-          
-          .step-divider {
-            height: 20px;
-            width: 2px;
-            background: var(--border-color, #d1d5db);
-            margin-left: 15px;
-            margin-bottom: 5px;
-          }
-          
-          /* Mobile styles */
-          @media (max-width: 768px) {
-            .custom-swal-popup {
-              padding: 20px;
-              margin: 0 10px;
-            }
-            
-            .custom-swal-title {
-              font-size: 18px;
-              margin-bottom: 15px;
-              padding-right: 30px;
-            }
-            
-            .custom-swal-confirm-btn {
-              padding: 12px 20px;
-              font-size: 14px;
-            }
-            
-            .custom-swal-close-btn {
-              right: 15px;
-              top: 15px;
-              font-size: 16px;
-            }
-            
-            .medical-assessment-steps {
-              padding: 10px 0;
-            }
-            
-            .assessment-step {
-              margin-bottom: 15px;
-            }
-            
-            .step-number {
-              width: 24px;
-              height: 24px;
-              margin-right: 10px;
-              font-size: 12px;
-            }
-            
-            .step-title {
-              font-size: 14px;
-              margin-bottom: 5px;
-            }
-            
-            .step-description {
-              font-size: 12px;
-            }
-            
-            .step-divider {
-              height: 15px;
-              margin-left: 12px;
-            }
-          }
-          
-          /* Very small screens */
-          @media (max-width: 480px) {
-            .custom-swal-popup {
-              padding: 15px;
-              margin: 0 5px;
-            }
-            
-            .custom-swal-title {
-              font-size: 16px;
-            }
-            
-            .custom-swal-confirm-btn {
-              padding: 10px 15px;
-              font-size: 13px;
-            }
-            
-            .step-number {
-              width: 22px;
-              height: 22px;
-              font-size: 11px;
-            }
-            
-            .step-title {
-              font-size: 13px;
-            }
-            
-            .step-description {
-              font-size: 11px;
-            }
-          }
-        `;
-        document.head.appendChild(style);
-      }
-    }).then((result) => {
-      if (result.isConfirmed) {
-        // Add to cart after confirmation
-        actuallyAddToCart(product);
+  // Save scroll positions - called from useEffect
+  const saveScrollPositions = useCallback(() => {
+    const positions = {};
+    Object.keys(carouselRefs).forEach(categoryId => {
+      const carousel = carouselRefs[categoryId]?.current;
+      if (carousel) {
+        positions[categoryId] = carousel.scrollLeft;
       }
     });
-  };
+    return positions;
+  }, []);
 
-  const actuallyAddToCart = useCallback((product) => {
+  // Restore scroll positions
+  const restoreScrollPositions = useCallback((positions) => {
+    if (!positions || Object.keys(positions).length === 0) return;
+    
+    // Small delay to ensure DOM is ready
+    setTimeout(() => {
+      Object.keys(positions).forEach(categoryId => {
+        const carousel = carouselRefs[categoryId]?.current;
+        const savedPosition = positions[categoryId];
+        
+        if (carousel && savedPosition !== undefined && savedPosition !== carousel.scrollLeft) {
+          carousel.scrollLeft = savedPosition;
+        }
+      });
+    }, 10);
+  }, []);
+
+  const handleAddToCart = useCallback((product, e) => {
+    if (e) {
+      e.stopPropagation();
+    }
+    
+    // Store the last added product
+    lastAddedProductRef.current = product.id;
+    
+    // Prepare product data for cart
     const cartProduct = {
       ...product,
       image: productImages[product.name] || productImages['default']
@@ -707,7 +404,7 @@ const Homepage = () => {
     // Add to cart
     addToCart(cartProduct, 1);
     
-    // Show toast notification
+    // Show single toast (replace previous one)
     const message = existingItem 
       ? `${product.name} quantity updated to ${currentQuantity + 1}!`
       : `${product.name} added to cart!`;
@@ -734,21 +431,28 @@ const Homepage = () => {
     }
   }, [cartItems, addToCart]);
 
-  const handleAddToCart = useCallback((product, e) => {
-    e?.stopPropagation();
-
-    // Check if product is already in cart
-    const existingItem = cartItems.find(item => item.id === product.id);
-    const currentQuantity = existingItem ? existingItem.quantity : 0;
-    
-    // Show confirmation modal for first time adding to cart
-    if (!existingItem || currentQuantity === 0) {
-      showAddToCartConfirmation(product);
-    } else {
-      // If already in cart, just add another unit without showing confirmation
-      actuallyAddToCart(product);
+  // Save scroll positions BEFORE cart update and restore AFTER
+  useEffect(() => {
+    if (isInitialRender.current) {
+      isInitialRender.current = false;
+      return;
     }
-  }, [cartItems, actuallyAddToCart]);
+    
+    // Check if we just added to cart (cart length increased)
+    const cartJustUpdated = lastAddedProductRef.current !== null;
+    
+    if (cartJustUpdated) {
+      // Save positions before the component updates
+      const savedPositions = saveScrollPositions();
+      carouselScrollPositions.current = savedPositions;
+      
+      // Restore after a brief delay to allow React to update
+      setTimeout(() => {
+        restoreScrollPositions(savedPositions);
+        lastAddedProductRef.current = null;
+      }, 50);
+    }
+  }, [cartItems.length, saveScrollPositions, restoreScrollPositions]);
 
   const scrollToCategory = useCallback((categoryId) => {
     setActiveCategory(categoryId);
@@ -759,6 +463,44 @@ const Homepage = () => {
         block: 'start'
       });
     }
+  }, []);
+
+  // Save scroll positions on user scroll
+  useEffect(() => {
+    const handleScroll = (categoryId) => {
+      const carousel = carouselRefs[categoryId]?.current;
+      if (carousel) {
+        // Update the positions object
+        if (!carouselScrollPositions.current) {
+          carouselScrollPositions.current = {};
+        }
+        carouselScrollPositions.current[categoryId] = carousel.scrollLeft;
+      }
+    };
+
+    // Create scroll handlers for each carousel
+    const scrollHandlers = {};
+    Object.keys(carouselRefs).forEach(categoryId => {
+      scrollHandlers[categoryId] = () => handleScroll(categoryId);
+    });
+
+    // Add event listeners
+    Object.keys(carouselRefs).forEach(categoryId => {
+      const carousel = carouselRefs[categoryId]?.current;
+      if (carousel) {
+        carousel.addEventListener('scroll', scrollHandlers[categoryId], { passive: true });
+      }
+    });
+
+    // Cleanup
+    return () => {
+      Object.keys(carouselRefs).forEach(categoryId => {
+        const carousel = carouselRefs[categoryId]?.current;
+        if (carousel) {
+          carousel.removeEventListener('scroll', scrollHandlers[categoryId]);
+        }
+      });
+    };
   }, []);
 
   // Intersection Observer for active category
@@ -1170,7 +912,8 @@ const Homepage = () => {
           features: ['Reduces acne-causing bacteria and inflammation', 'Unclogs pores and controls excess oil', 'Multi-active gel for clearer, smoother skin'],
           popular: true
         },
-        {
+
+         {
           id: 'acne-2',
           name: 'Acne Cream',
           type: 'Cream',
@@ -1631,6 +1374,70 @@ const Homepage = () => {
     }
   }, [animateScroll]);
 
+  const CategorySection = useCallback(({ category }) => (
+    <section 
+      className="category-section" 
+      key={category.id}
+      id={category.id}
+      ref={categoryRefs[category.id]}
+    >
+      <div className="category-header">
+        <div className="category-title-section">
+          <div className="category-icon-title">
+            <div className="category-icon">
+              {category.icon}
+            </div>
+            <div>
+              <h2 className="section-title">{category.title}</h2>
+              <p className="section-subtitle">{category.description}</p>
+            </div>
+          </div>
+          <div className="category-stats">
+            <span className="product-count">{category.products.length} Products Available</span>
+            <button className="view-all-button">
+              View All <FiArrowRight />
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <div className="category-carousel-container">
+        <button 
+          className="carousel-button prev" 
+          onClick={() => scrollCarousel(category.id, 'prev')}
+        >
+          <FiChevronLeft />
+        </button>
+        
+        <div className="carousel-wrapper">
+          <div 
+            className="carousel-track" 
+            ref={carouselRefs[category.id]}
+          >
+            {category.products.map((product) => (
+              <div key={product.id} className="carousel-slide">
+                <ProductCard 
+                  product={product}
+                  handleProductClick={handleProductClick}
+                  handleAddToCart={handleAddToCart}
+                  isInCart={isProductInCart(product.id)}
+                  cartQuantity={getCartQuantity(product.id)}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+        
+        <button 
+          className="carousel-button next" 
+          onClick={() => scrollCarousel(category.id, 'next')}
+        >
+          <FiChevronRight />
+        </button>
+      </div>
+    </section>
+  ), [scrollCarousel, handleProductClick, handleAddToCart, isProductInCart, getCartQuantity]);
+
   const trustIndicators = [
     { icon: <MdHealthAndSafety />, text: 'Doctor-Trusted Treatments' },
     { icon: <FiShield />, text: 'Secure & Confidential' },
@@ -1645,34 +1452,23 @@ const Homepage = () => {
       <ToastContainer
         position="top-right"
         autoClose={3000}
-        hideProgressBar
-        newestOnTop
+        hideProgressBar={true}
+        newestOnTop={true}
         closeOnClick
+        rtl={false}
         pauseOnFocusLoss={false}
         draggable
         pauseOnHover
         theme="light"
         limit={1}
-        onClose={() => {
-          toastIdRef.current = null;
-        }}
       />
       
       <HeroSection />
 
       <CategoryCardsSection />
 
-      {categories.map(category => (
-        <CategorySection
-          key={category.id}
-          category={category}
-          categoryRef={categoryRefs[category.id]}
-          carouselRef={carouselRefs[category.id]}
-          productCartStatus={productCartStatus}
-          onProductClick={handleProductClick}
-          onAddToCart={handleAddToCart}
-          scrollCarousel={scrollCarousel}
-        />
+      {categories.map((category) => (
+        <CategorySection key={category.id} category={category} />
       ))}
 
       <section className="trust-section">
@@ -1718,3 +1514,7 @@ const Homepage = () => {
 };
 
 export default Homepage;
+       
+// can you help me fix a problem here when i add to cart since i have a carousel item rendering i need to press > key to scroll to right or left now if i scroll to right and then add to cart an item from the right side it goes back to the left side on the first item of the carousel where i scrolled
+
+

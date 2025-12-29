@@ -1,8 +1,6 @@
 /* Header.css - Main header styles */
 
 /* Reset & Base Styles */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-
 :root {
   --bottom-nav-height: 74px;
   --safe-area-bottom: env(safe-area-inset-bottom, 0px);
@@ -10,11 +8,11 @@
   --nav-label-size: 12px;
   --nav-item-padding: 0.6rem;
   --nav-item-gap: 0.3rem;
-  --header-height: 80px; /* Increased from 64px */
+  --header-height: 80px;
 }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
   color: var(--text-dark);
   padding-bottom: calc(var(--bottom-nav-height) + var(--safe-area-bottom));
   -webkit-font-smoothing: antialiased;
@@ -23,16 +21,20 @@ body {
   line-height: 1.5;
 }
 
-/* Header Styles - Professional - BIGGER HEADER */
+/* Header Styles */
 .header {
   background: var(--background-card);
   border-bottom: 1px solid var(--border-color);
-  position: sticky;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+  position: fixed;
   top: 0;
- 
-  z-index: 100;
-  box-shadow: var(--shadow-sm);
-  height: var(--header-height); /* Using variable */
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  padding: 0;
+  transition: all 0.3s ease;
+  height: var(--header-height);
 }
 
 .header-top {
@@ -40,21 +42,21 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 0 1.5rem;
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   height: 100%;
 }
 
-/* Logo Section - Adjusted for bigger header */
+/* Logo Section */
 .logo-section {
   display: flex;
   align-items: center;
-  gap: 1rem; /* Slightly increased gap */
+  gap: 1rem;
 }
 
 .logo-container {
-  width: 46px; /* Increased from 40px */
-  height: 46px; /* Increased from 40px */
+  width: 46px;
+  height: 46px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -73,14 +75,14 @@ body {
 }
 
 .logo-name {
-  font-size: 1.35rem; /* Increased from 1.2rem */
+  font-size: 1.35rem;
   font-weight: 600;
   color: var(--gray-800);
   letter-spacing: -0.2px;
-  font-family: 'Inter', sans-serif;
+
 }
 
-/* Desktop Navigation - Adjusted spacing */
+/* Desktop Navigation */
 .desktop-nav {
   display: none;
 }
@@ -98,8 +100,8 @@ body {
   padding: 0.6rem 0;
   position: relative;
   transition: all 0.2s ease;
-  font-size: 1rem; /* Slightly increased */
-  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+
 }
 
 .desktop-nav a:hover {
@@ -122,7 +124,53 @@ body {
   border-radius: 2px;
 }
 
-/* Bottom Navigation - Keep same size */
+/* Header Actions (Right side of header) */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+/* Cart Icon Styles */
+.cart-icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  color: var(--gray-600);
+  transition: color 0.2s ease;
+}
+
+.cart-icon-btn:hover {
+  color: var(--primary-color);
+}
+
+.cart-icon {
+  font-size: 24px;
+}
+
+.cart-badge {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  background: var(--primary-color); /* Or your danger color */
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--background-card);
+}
+
+/* Bottom Navigation */
 .bottom-nav {
   position: fixed;
   bottom: 0;
@@ -152,6 +200,7 @@ body {
   font-size: var(--nav-label-size);
   gap: var(--nav-item-gap);
   cursor: pointer;
+  text-decoration: none;
   flex: 1;
   transition: all 0.2s ease;
   border-radius: 6px;
@@ -164,7 +213,7 @@ body {
   white-space: nowrap;
   overflow: visible;
   text-overflow: clip;
-  font-family: 'Inter', sans-serif;
+
 }
 
 .bottom-nav-item:active {
@@ -187,7 +236,7 @@ body {
   transition: all 0.2s ease;
   color: var(--gray-600);
   min-width: 22px;
-  font-family: 'Inter', sans-serif;
+
 }
 
 .bottom-nav-label {
@@ -200,7 +249,7 @@ body {
   max-width: 100%;
   transition: all 0.2s ease;
   color: var(--gray-600);
-  font-family: 'Inter', sans-serif;
+
   text-align: center;
   line-height: 1.2;
 }
@@ -224,9 +273,9 @@ body {
     display: none;
   }
   
-  /* Header adjustments for mobile - keep it bigger */
+  /* Header adjustments for mobile */
   .header {
-    height: 72px; /* Increased from 60px */
+    height: 72px; 
   }
   
   .header-top {
@@ -234,14 +283,31 @@ body {
   }
   
   .logo-name {
-    font-size: 1.25rem; /* Increased from 1.1rem */
+    font-size: 1.25rem; 
     font-weight: 600;
-    font-family: 'Inter', sans-serif;
+   
   }
   
   .logo-container {
-    width: 42px; /* Increased from 36px */
-    height: 42px; /* Increased from 36px */
+    width: 42px; 
+    height: 42px; 
+  }
+
+  /* Mobile Cart Adjustments */
+  .header-actions {
+    gap: 0.5rem;
+  }
+
+  .cart-icon {
+    font-size: 22px; /* Slightly smaller for mobile */
+  }
+  
+  .cart-badge {
+    height: 16px;
+    width: 16px;
+    font-size: 9px;
+    right: 0px;
+    top: 0px;
   }
   
   /* Bottom nav stays the same size */
@@ -293,7 +359,7 @@ body {
   }
   
   .header {
-    height: 84px; /* Increased from 68px */
+    height: 84px; 
   }
   
   .header-top {
@@ -301,14 +367,14 @@ body {
   }
   
   .logo-name {
-    font-size: 1.4rem; /* Increased from 1.15rem */
+    font-size: 1.4rem; 
     font-weight: 600;
-    font-family: 'Inter', sans-serif;
+  
   }
   
   .logo-container {
-    width: 48px; /* Increased from 42px */
-    height: 48px; /* Increased from 42px */
+    width: 48px; 
+    height: 48px; 
   }
 }
 
@@ -335,7 +401,7 @@ body {
   }
   
   .header {
-    height: 88px; /* Increased from 70px */
+    height: 88px;
   }
   
   .header-top {
@@ -343,14 +409,14 @@ body {
   }
   
   .logo-name {
-    font-size: 1.45rem; /* Increased from 1.25rem */
+    font-size: 1.45rem; 
     font-weight: 600;
-    font-family: 'Inter', sans-serif;
+
   }
   
   .logo-container {
-    width: 50px; /* Increased from 42px */
-    height: 50px; /* Increased from 42px */
+    width: 50px; 
+    height: 50px; 
   }
 }
 
@@ -365,13 +431,13 @@ body {
   }
   
   .logo-name {
-    font-size: 1.5rem; /* Increased from 1.3rem */
+    font-size: 1.5rem; 
     font-weight: 600;
-    font-family: 'Inter', sans-serif;
+   
   }
   
   .logo-container {
-    width: 52px; /* Optional: make it slightly bigger on large screens */
+    width: 52px; 
     height: 52px;
   }
 }
