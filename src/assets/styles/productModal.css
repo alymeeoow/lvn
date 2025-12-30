@@ -1,10 +1,4 @@
-/* ============================================================================
-   PRODUCT MODAL - CLEAN & PROFESSIONAL DESIGN
-   ============================================================================ */
 
-/* ===============================
-   MODAL OVERLAY
-================================ */
 
 .modal-overlay {
   position: fixed;
@@ -18,9 +12,6 @@
   padding: 16px;
 }
 
-/* ===============================
-   MODAL CONTAINER
-================================ */
 
 .modal-content {
 
@@ -48,9 +39,6 @@
   }
 }
 
-/* ===============================
-   MODAL CLOSE BUTTON
-================================ */
 
 .modal-close-button {
   position: absolute;
@@ -76,9 +64,6 @@
   border-color: #4f46e5;
 }
 
-/* ===============================
-   MODAL HEADER
-================================ */
 
 .modal-header {
   display: flex;
@@ -155,9 +140,6 @@
   margin-top: 4px;
 }
 
-/* ===============================
-   MODAL BODY
-================================ */
 
 .modal-body {
   padding: 32px;
@@ -169,9 +151,6 @@
   min-height: 0;
 }
 
-/* ===============================
-   SECTION COMMON STYLES
-================================ */
 
 .modal-section {
   display: flex;
@@ -195,9 +174,6 @@
   font-size: 15px;
 }
 
-/* ===============================
-   BENEFITS SECTION - CLEAN & SIMPLE
-================================ */
 
 .benefits-section {
   margin-top: 8px;
@@ -227,9 +203,6 @@
   font-size: 18px;
 }
 
-/* ===============================
-   HOW IT WORKS SECTION - CLEAN STEPS
-================================ */
 
 .process-section {
   margin-top: 8px;
@@ -299,9 +272,6 @@
   font-size: 15px;
 }
 
-/* ===============================
-   PRESCRIPTION SECTIONS
-================================ */
 
 .prescription-section,
 .formulations-section {
@@ -328,7 +298,6 @@
   font-size: 15px;
 }
 
-/* Strength Options */
 .strength-options {
   display: flex;
   gap: 8px;
@@ -345,7 +314,6 @@
   font-weight: 600;
 }
 
-/* Feature Lists */
 .prescription-features,
 .formulation-features {
   display: flex;
@@ -372,7 +340,6 @@
   font-size: 18px;
 }
 
-/* Pricing Note */
 .pricing-note {
   background: #fef3c7;
   border: 1px solid #f59e0b;
@@ -393,9 +360,6 @@
   margin-top: 2px;
 }
 
-/* ===============================
-   FAQ SECTION
-================================ */
 
 .faq-section {
   margin-top: 8px;
@@ -425,9 +389,6 @@
   font-size: 15px;
 }
 
-/* ===============================
-   SAFETY/WARNING SECTIONS
-================================ */
 
 .safety-section,
 .warning-section {
@@ -483,9 +444,6 @@
   color: #dc2626;
 }
 
-/* ===============================
-   DISCLAIMER SECTION
-================================ */
 
 .disclaimer-section {
   background: #f9fafb;
@@ -516,9 +474,6 @@
   border-top: 1px solid #e5e7eb;
 }
 
-/* ===============================
-   MODAL FOOTER
-================================ */
 
 .modal-footer {
   padding: 24px 32px;
@@ -564,9 +519,6 @@
   border-color: #9ca3af;
 }
 
-/* ===============================
-   SCROLLBAR
-================================ */
 
 .modal-body::-webkit-scrollbar {
   width: 6px;
@@ -586,9 +538,6 @@
   background: #a1a1a1;
 }
 
-/* ===============================
-   RESPONSIVE DESIGN
-================================ */
 
 @media (max-width: 768px) {
   .modal-overlay {

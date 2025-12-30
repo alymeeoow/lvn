@@ -1578,7 +1578,7 @@ const Categories = () => {
           <div className="results-header skeleton-results-header">
             <div className="results-header-left">
               <h2>
-                <span className="skeleton-text" style={{ width: '200px', height: '24px', display: 'inline-block' }}></span>
+                <span className="skeleton-text" style={{ width: '200px', height: '30px', display: 'inline-block' }}></span>
                 <span className="product-count skeleton-text" style={{ width: '100px', height: '18px', marginLeft: '8px' }}></span>
               </h2>
             </div>

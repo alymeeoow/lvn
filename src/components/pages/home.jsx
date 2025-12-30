@@ -2,11 +2,12 @@ import React, { useState, useRef, useEffect, useCallback } from 'react';
 import '../../assets/styles/home.css';
 import ProductModal from '../modals/ProductModal';
 import { useCart } from '../context/cartContext';
-import Lvn from "../../assets/images/logo/transparent.png"
+import Lvn from "../../assets/images/logo/lvn-no-no-pilit.png"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { flushSync } from 'react-dom';
 import Swal from 'sweetalert2';
+import { FaUserMd, FaBox, FaHeadset } from "react-icons/fa"
 
 import Button from '../ui/button';
 
@@ -737,15 +738,15 @@ const Homepage = () => {
   const handleAddToCart = useCallback((product, e) => {
     e?.stopPropagation();
 
-    // Check if product is already in cart
+  
     const existingItem = cartItems.find(item => item.id === product.id);
     const currentQuantity = existingItem ? existingItem.quantity : 0;
     
-    // Show confirmation modal for first time adding to cart
+    
     if (!existingItem || currentQuantity === 0) {
       showAddToCartConfirmation(product);
     } else {
-      // If already in cart, just add another unit without showing confirmation
+   
       actuallyAddToCart(product);
     }
   }, [cartItems, actuallyAddToCart]);
@@ -761,7 +762,7 @@ const Homepage = () => {
     }
   }, []);
 
-  // Intersection Observer for active category
+
   useEffect(() => {
     const observerOptions = {
       root: null,
@@ -845,33 +846,59 @@ const Homepage = () => {
   };
 
   const HeroSection = useCallback(() => (
-    <section className="hero-section" style={{ minHeight: '100vh' }}>
-      <div className="hero-content">
-        <h1 className="hero-title">
-          Personalized care,<br />delivered to your door
-        </h1>
-        <p className="hero-subtitle">
-          Expert-backed treatments designed just for you—all from the comfort of home.
-        </p>
-        <div className="hero-cta-group">
-          <button className="hero-button primary">
-            Get Started <FiChevronRight className="button-icon" />
-          </button>
-          <button className="hero-button secondary">
-            Learn More
-          </button>
-        </div>
-      </div>
-      <div className="hero-image">
-        <div className="hero-image-container">
-          <img 
-            src={Lvn}
-            alt="Healthcare Services" 
-            className="hero-img"
-          />
-        </div>
-      </div>
-    </section>
+  <section className="hero-section">
+  <div className="hero-content">
+
+
+    <h1 className="hero-title">
+      Personalized care,<br />
+      delivered to your door
+    </h1>
+
+    <p className="hero-subtitle">
+      Expert-backed treatments designed just for you—all from the comfort of home.
+    </p>
+
+    
+     <div className="hero-trust">
+  <span className="hero-trust-item">
+    <FaUserMd className="hero-trust-icon" />
+    Licensed providers
+  </span>
+
+  <span className="hero-trust-item">
+    <FaBox className="hero-trust-icon" />
+    Discreet shipping
+  </span>
+
+  <span className="hero-trust-item">
+    <FaHeadset className="hero-trust-icon" />
+    Ongoing support
+  </span>
+</div>
+
+    <div className="hero-cta-group">
+      <button type="button" className="hero-button primary">
+        Get Started <FiChevronRight className="button-icon" />
+      </button>
+
+      <button type="button" className="hero-button secondary">
+        Learn More
+      </button>
+    </div>
+
+    {/* Optional trust row (makes it feel more “complete” and conversion-friendly) */}
+  
+  </div>
+
+  <div className="hero-image">
+    <div className="hero-image-container">
+      <img src={Lvn} alt="Healthcare Services" className="hero-img" />
+      <p className="hero-image-caption">Clinician-guided plans • Discreet delivery</p>
+    </div>
+  </div>
+</section>
+
   ), []);
 
   const CategoryCardsSection = useCallback(() => {

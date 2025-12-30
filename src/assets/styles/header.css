@@ -1,6 +1,4 @@
-/* Header.css - Main header styles */
 
-/* Reset & Base Styles */
 :root {
   --bottom-nav-height: 74px;
   --safe-area-bottom: env(safe-area-inset-bottom, 0px);
@@ -21,7 +19,6 @@ body {
   line-height: 1.5;
 }
 
-/* Header Styles */
 .header {
   background: var(--background-card);
   border-bottom: 1px solid var(--border-color);
@@ -47,7 +44,6 @@ body {
   height: 100%;
 }
 
-/* Logo Section */
 .logo-section {
   display: flex;
   align-items: center;
@@ -82,7 +78,6 @@ body {
 
 }
 
-/* Desktop Navigation */
 .desktop-nav {
   display: none;
 }
@@ -124,14 +119,12 @@ body {
   border-radius: 2px;
 }
 
-/* Header Actions (Right side of header) */
 .header-actions {
   display: flex;
   align-items: center;
   gap: 1.5rem;
 }
 
-/* Cart Icon Styles */
 .cart-icon-btn {
   background: none;
   border: none;
@@ -157,8 +150,7 @@ body {
   position: absolute;
   top: -2px;
   right: -2px;
-  background: var(--primary-color); /* Or your danger color */
-  color: white;
+  background: var(--primary-color);   color: white;
   font-size: 10px;
   font-weight: 700;
   height: 18px;
@@ -170,7 +162,6 @@ body {
   border: 2px solid var(--background-card);
 }
 
-/* Bottom Navigation */
 .bottom-nav {
   position: fixed;
   bottom: 0;
@@ -259,7 +250,89 @@ body {
   color: var(--primary-color);
 }
 
-/* Responsive Design - MOBILE MODE */
+
+.avatar-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.profile-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.avatar-chevron {
+  transition: transform 0.15s ease;
+  opacity: 0.7;
+}
+.avatar-chevron.open {
+  transform: rotate(180deg);
+}
+
+.avatar-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  width: 220px;
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.12);
+  overflow: hidden;
+  z-index: 50;
+}
+
+.avatar-menu-header {
+  padding: 12px 12px 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+.avatar-menu-name {
+  font-weight: 900;
+  font-size: 14px;
+}
+.avatar-menu-sub {
+  font-size: 12px;
+  opacity: 0.7;
+  margin-top: 2px;
+}
+
+.avatar-menu-item {
+  width: 100%;
+  border: none;
+  background: transparent;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-weight: 700;
+  text-align: left;
+}
+.avatar-menu-item:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.avatar-menu-item.danger {
+  color: #b42318;
+}
+.avatar-menu-item.danger:hover {
+  background: rgba(180, 35, 24, 0.06);
+}
+
+
 @media (max-width: 767px) {
   .mobile-only {
     display: flex !important;
@@ -273,8 +346,7 @@ body {
     display: none;
   }
   
-  /* Header adjustments for mobile */
-  .header {
+    .header {
     height: 72px; 
   }
   
@@ -293,14 +365,12 @@ body {
     height: 42px; 
   }
 
-  /* Mobile Cart Adjustments */
-  .header-actions {
+    .header-actions {
     gap: 0.5rem;
   }
 
   .cart-icon {
-    font-size: 22px; /* Slightly smaller for mobile */
-  }
+    font-size: 22px;   }
   
   .cart-badge {
     height: 16px;
@@ -310,8 +380,7 @@ body {
     top: 0px;
   }
   
-  /* Bottom nav stays the same size */
-  .bottom-nav {
+    .bottom-nav {
     padding: 0.5rem 0.2rem;
     height: calc(70px + var(--safe-area-bottom));
   }
@@ -336,7 +405,6 @@ body {
   }
 }
 
-/* Tablet */
 @media (min-width: 768px) and (max-width: 1023px) {
   .mobile-only {
     display: none !important;
@@ -378,7 +446,6 @@ body {
   }
 }
 
-/* Desktop */
 @media (min-width: 768px) {
   .mobile-only {
     display: none !important;
@@ -420,7 +487,6 @@ body {
   }
 }
 
-/* Large Desktop */
 @media (min-width: 1024px) {
   .header-top {
     padding: 0 3rem;
@@ -442,7 +508,6 @@ body {
   }
 }
 
-/* Extra small screens */
 @media (max-width: 320px) {
   .bottom-nav {
     height: calc(68px + var(--safe-area-bottom));
@@ -463,21 +528,18 @@ body {
   }
 }
 
-/* iPhone Notch/Dynamic Island Support */
 @supports (padding: max(0px)) {
   .bottom-nav {
     padding-bottom: max(0.5rem, var(--safe-area-bottom));
   }
 }
 
-/* Dark Mode */
 @media (prefers-color-scheme: dark) {
   .bottom-nav-item:active {
     background: rgba(77, 140, 228, 0.05);
   }
 }
 
-/* Accessibility */
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.01ms !important;
@@ -492,7 +554,6 @@ body {
   border-radius: 6px;
 }
 
-/* Touch optimization */
 @media (pointer: coarse) {
   .bottom-nav-item {
     min-height: 58px;
