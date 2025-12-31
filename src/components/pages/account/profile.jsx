@@ -1,15 +1,15 @@
-// src/components/pages/profile.jsx
+
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import "../../assets/styles/profile.css";
-import Button from "../ui/button";
+import "../../../assets/styles/profile.css";
+import Button from "../../ui/button";
 import { useNavigate } from "react-router-dom";
 import { FaCalendarAlt } from "react-icons/fa";
 
-import ProfileSidebar from "../layout/profileSidebar";
+import ProfileSidebar from "../../layout/profileSidebar";
 
 const STORAGE_AUTH_KEY = "authUser";
 
-/** Use the same timezone list you used in Signup */
+
 const TIME_ZONES = [
   "(GMT-05:00) Eastern Time (EST) - Detroit",
   "(GMT-05:00) Eastern Time (EST) - Indianapolis",
@@ -67,7 +67,6 @@ function only10Digits(value) {
   return value.replace(/\D/g, "").slice(0, 10);
 }
 
-/* ---------------- Calendar helpers (same behavior as signup) ---------------- */
 
 function prettyDateFromISO(iso) {
   if (!iso) return "";
@@ -98,7 +97,7 @@ function CalendarPicker({ valueISO, onChangeISO, disabled }) {
   const currentYear = today.getFullYear();
 
   const [open, setOpen] = useState(false);
-  const [view, setView] = useState("day"); // "day" | "year" | "month"
+  const [view, setView] = useState("day"); 
 
   const initial = useMemo(() => {
     if (valueISO) {
@@ -474,7 +473,6 @@ const ProfilePage = () => {
   const [active, setActive] = useState("profile");
   const [authUser, setAuthUser] = useState(null);
 
-  // ✅ track original values so we can detect changes
   const [initialForm, setInitialForm] = useState(null);
 
   const [form, setForm] = useState({
@@ -509,8 +507,6 @@ const ProfilePage = () => {
     setForm(nextForm);
     setInitialForm(nextForm); // ✅ baseline for "dirty" check
   }, [navigate]);
-
-  // ✅ logout INSIDE component so navigate exists
   const handleLogout = () => {
     sessionStorage.removeItem("authUser");
     localStorage.removeItem("authUser");
@@ -536,8 +532,6 @@ const ProfilePage = () => {
 
     setForm((p) => ({ ...p, [name]: value }));
   };
-
-  // ✅ determine if user changed anything
   const isDirty = useMemo(() => {
     if (!initialForm) return false;
     return (
@@ -551,8 +545,7 @@ const ProfilePage = () => {
   }, [form, initialForm]);
 
   const handleSave = () => {
-    if (!isDirty) return; // ✅ do nothing if no changes
-
+    if (!isDirty) return; 
     const existing = readAuthUser();
     if (!existing) return;
 
@@ -570,7 +563,7 @@ const ProfilePage = () => {
     writeAuthUser(updated);
     setAuthUser(updated);
 
-    // ✅ reset baseline so button becomes disabled again
+
     const newBaseline = {
       ...form,
       firstName: form.firstName.trim(),
@@ -732,13 +725,7 @@ const ProfilePage = () => {
             </div>
           )}
 
-          {active === "addresses" && (
-            <div className="profile-card">
-              <h1 className="profile-title">My Addresses</h1>
-              <p className="profile-muted">Add your address UI here.</p>
-            </div>
-          )}
-
+         
           {active === "password" && (
             <div className="profile-card">
               <h1 className="profile-title">Change password</h1>

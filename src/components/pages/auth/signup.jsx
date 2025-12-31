@@ -1,8 +1,7 @@
-// CompactSignup.jsx
 import React, { useMemo, useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import "../../assets/styles/signup.css";
-import Button from "../ui/button";
+import "../../../assets/styles/signup.css";
+import Button from "../../ui/button";
 
 import {
   FaArrowLeft,
@@ -210,8 +209,6 @@ async function createPasswordRecord(password) {
     iterations: 120000,
   };
 }
-
-// (not used in signup, but handy if you want later)
 async function verifyPassword(password, record) {
   if (!record?.salt || !record?.hash) return false;
   const saltBytes = base64ToBytes(record.salt);
@@ -584,16 +581,12 @@ const SignupPage = ({ onSignupSuccess }) => {
   const [message, setMessage] = useState({ type: "", text: "" });
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
-
-  // ✅ Load draft signup data (optional)
   useEffect(() => {
     const draft = loadJSON(STORAGE_KEYS.SIGNUP_DRAFT, null);
     if (draft && typeof draft === "object") {
       setFormData((prev) => ({ ...prev, ...draft }));
     }
   }, []);
-
-  // ✅ Save draft while typing (NO password / confirm / OTP)
   useEffect(() => {
     const safeDraft = {
       firstName: formData.firstName,
@@ -712,8 +705,6 @@ const SignupPage = ({ onSignupSuccess }) => {
       setIsLoading(true);
       try {
         await new Promise((r) => setTimeout(r, 900));
-
-        // ✅ Create hashed password record (NOT plaintext)
         const passwordRecord = await createPasswordRecord(formData.password);
 
         const newUser = {
@@ -728,11 +719,7 @@ const SignupPage = ({ onSignupSuccess }) => {
           passwordRecord, // ✅ save hash+salt only
           createdAt: new Date().toISOString(),
         };
-
-        // ✅ SAVE JSON LOCALLY
         saveJSON(STORAGE_KEYS.USER, newUser);
-
-        // optional: clear draft once completed
         localStorage.removeItem(STORAGE_KEYS.SIGNUP_DRAFT);
 
         if (onSignupSuccess) onSignupSuccess(newUser);

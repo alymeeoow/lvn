@@ -27,42 +27,26 @@ const CartSidebar = () => {
   } = useCart();
 
   const [isCheckingOut, setIsCheckingOut] = useState(false);
-
-  // Disable body scroll when cart is open
   useEffect(() => {
     if (isCartOpen) {
-      // Save current scroll position
       const scrollY = window.scrollY;
-      // Get current body overflow value
       const body = document.body;
-      // Save current styles
       const originalOverflow = body.style.overflow;
       const originalPosition = body.style.position;
       const originalTop = body.style.top;
       const originalWidth = body.style.width;
-      
-      // Apply styles to prevent scrolling
       body.style.overflow = 'hidden';
       body.style.position = 'fixed';
       body.style.top = `-${scrollY}px`;
       body.style.width = '100%';
-      
-      // Store scroll position in body dataset
       body.dataset.scrollY = scrollY.toString();
-      
-      // Cleanup function
       return () => {
-        // Restore original styles
         body.style.overflow = originalOverflow;
         body.style.position = originalPosition;
         body.style.top = originalTop;
         body.style.width = originalWidth;
-        
-        // Restore scroll position
         const savedScrollY = parseInt(body.dataset.scrollY || '0', 10);
         window.scrollTo(0, savedScrollY);
-        
-        // Clean up dataset
         delete body.dataset.scrollY;
       };
     }
@@ -70,7 +54,6 @@ const CartSidebar = () => {
 
   const handleCheckout = () => {
     setIsCheckingOut(true);
-    // Simulate checkout process
     setTimeout(() => {
       alert('Proceeding to checkout! In a real app, this would redirect to checkout.');
       setIsCheckingOut(false);
@@ -103,16 +86,13 @@ const CartSidebar = () => {
 
   return (
     <>
-      {/* Overlay */}
-      <div 
+            <div 
         className={`cart-overlay ${isCartOpen ? 'active' : ''}`}
         onClick={closeCart}
       />
       
-      {/* Cart Sidebar */}
-      <div className={`cart-sidebar ${isCartOpen ? 'open' : ''}`}>
-        {/* Header */}
-        <div className="cart-header">
+            <div className={`cart-sidebar ${isCartOpen ? 'open' : ''}`}>
+                <div className="cart-header">
           <div className="cart-title">
             <FiShoppingCart className="cart-header-icon" />
             <h2>Your Cart</h2>
@@ -123,8 +103,7 @@ const CartSidebar = () => {
           </button>
         </div>
 
-        {/* Cart Content */}
-        <div className="cart-content">
+                <div className="cart-content">
           {cartItems.length === 0 ? (
             <div className="empty-cart">
               <FiShoppingCart className="empty-cart-icon" />
@@ -136,8 +115,7 @@ const CartSidebar = () => {
             </div>
           ) : (
             <>
-              {/* Cart Items */}
-              <div className="cart-items">
+                            <div className="cart-items">
                 {cartItems.map((item) => (
                   <div key={item.id} className="cart-item">
                     <div className="cart-item-image">
@@ -189,8 +167,7 @@ const CartSidebar = () => {
                 ))}
               </div>
 
-              {/* Order Summary */}
-              <div className="order-summary">
+                            <div className="order-summary">
                 <h3>Order Summary</h3>
                 
                 <div className="summary-row">
@@ -215,8 +192,7 @@ const CartSidebar = () => {
                   <span>{formatPrice(orderTotal)}</span>
                 </div>
 
-                {/* Trust Badges */}
-                <div className="trust-badges">
+                                <div className="trust-badges">
                   <div className="trust-badge">
                     <FiShield />
                     <span>Secure Checkout</span>
@@ -231,8 +207,7 @@ const CartSidebar = () => {
                   </div>
                 </div>
 
-                {/* Actions */}
-                <div className="cart-actions">
+                                <div className="cart-actions">
                   <button 
                     className="checkout-btn"
                     onClick={handleCheckout}

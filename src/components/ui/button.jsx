@@ -1,7 +1,6 @@
-// LoginButton.js
 import React from 'react';
 import '../../assets/styles/button.css';
-import { FiUser } from 'react-icons/fi'; // Optional: for icon support
+import { FiUser } from 'react-icons/fi';
 
 const LoginButton = ({ 
   children = "Log In", 
@@ -15,7 +14,6 @@ const LoginButton = ({
   className = "",
   ...props 
 }) => {
-  // Build CSS classes
   const variantClass = {
     default: '',
     outline: 'login-btn-outline',
@@ -51,14 +49,9 @@ const LoginButton = ({
     </button>
   );
 };
-
-// Example usage components:
-
-// 1. Default login button (for header)
 export const HeaderLoginButton = () => {
   const handleLogin = () => {
     console.log('Login clicked');
-    // Your login logic here
   };
   
   return (
@@ -69,8 +62,6 @@ export const HeaderLoginButton = () => {
     />
   );
 };
-
-// 2. Login button for forms
 export const FormLoginButton = ({ onSubmit, loading }) => {
   return (
     <LoginButton
@@ -83,8 +74,6 @@ export const FormLoginButton = ({ onSubmit, loading }) => {
     </LoginButton>
   );
 };
-
-// 3. Outline variant
 export const OutlineLoginButton = ({ onClick }) => {
   return (
     <LoginButton

@@ -190,8 +190,7 @@ const Header = () => {
               </button>
             )}
 
-            {/* 🛒 Cart Icon - Hide on auth pages */}
-            {!isAuthPage && (
+                        {!isAuthPage && (
               <button
                 className="cart-icon-btn"
                 onClick={openCart}
@@ -267,8 +266,7 @@ const Header = () => {
         </div>
       </header>
 
-      {/* Bottom Navigation Bar - Mobile Only - Hide on auth pages */}
-      {!isAuthPage && (
+            {!isAuthPage && (
         <nav className="bottom-nav mobile-only" aria-label="Main navigation">
           {mobileNavItems.map((item) => (
             <NavLink

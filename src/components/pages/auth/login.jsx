@@ -1,8 +1,8 @@
-// CompactLogin.jsx (components/pages/login.jsx or wherever your Login page lives)
+
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../../assets/styles/login.css";
-import Button from "../ui/button";
+import "../../../assets/styles/login.css";
+import Button from "../../ui/button";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -16,11 +16,7 @@ import {
   FaArrowLeft,
 } from "react-icons/fa";
 
-/* ------------------------------- */
-/* ✅ Password verify (NO plaintext)
-   PBKDF2 + SHA-256 (Web Crypto)
-   Must match your SignupPage impl
-/* ------------------------------- */
+
 const enc = new TextEncoder();
 
 function bytesToBase64(bytes) {
@@ -111,8 +107,6 @@ const LoginPage = ({ onLoginSuccess }) => {
 
     try {
       await new Promise((resolve) => setTimeout(resolve, 500));
-
-      // 🔹 Get signed-up user from localStorage
       const storedUserRaw = localStorage.getItem("user");
       const storedUser = storedUserRaw ? JSON.parse(storedUserRaw) : null;
 
@@ -123,8 +117,6 @@ const LoginPage = ({ onLoginSuccess }) => {
         });
         return;
       }
-
-      // 🔹 Email match check
       if ((storedUser.email || "").toLowerCase() !== formData.email.trim().toLowerCase()) {
         toast.error("Account not found with this email.", {
           position: "top-right",
@@ -132,8 +124,6 @@ const LoginPage = ({ onLoginSuccess }) => {
         });
         return;
       }
-
-      // ✅ Password verify (hash+salt record from signup)
       const record = storedUser.passwordRecord;
       if (!record) {
         toast.error("This account has no password record. Please sign up again.", {
@@ -156,8 +146,6 @@ const LoginPage = ({ onLoginSuccess }) => {
         toast.error("Incorrect password.", { position: "top-right", autoClose: 2500 });
         return;
       }
-
-      // 🔹 Build logged-in session object (exclude passwordRecord from session if desired)
       const { passwordRecord, ...safeUser } = storedUser;
 
       const loggedInUser = {
@@ -165,8 +153,6 @@ const LoginPage = ({ onLoginSuccess }) => {
         token: "mock-jwt-token",
         lastLoginAt: new Date().toISOString(),
       };
-
-      // 🔹 Save login session
       if (formData.rememberMe) {
         localStorage.setItem("authUser", JSON.stringify(loggedInUser));
         sessionStorage.removeItem("authUser");
@@ -174,8 +160,6 @@ const LoginPage = ({ onLoginSuccess }) => {
         sessionStorage.setItem("authUser", JSON.stringify(loggedInUser));
         localStorage.removeItem("authUser");
       }
-
-      // ✅ IMPORTANT: tell Header (same tab) that auth changed
       window.dispatchEvent(new Event("auth:changed"));
 
       if (onLoginSuccess) onLoginSuccess(loggedInUser);
@@ -224,8 +208,7 @@ const LoginPage = ({ onLoginSuccess }) => {
 
       <main className="login-page">
         <div className="login-container">
-          {/* Back Button */}
-          <button
+                    <button
             className="login-back-button"
             onClick={handleBackClick}
             aria-label="Go back"
@@ -235,16 +218,13 @@ const LoginPage = ({ onLoginSuccess }) => {
             <span></span>
           </button>
 
-          {/* Form Header */}
-          <div className="form-header">
+                    <div className="form-header">
             <h2>Welcome Back</h2>
             <p>Sign in to continue to your account</p>
           </div>
 
-          {/* Login Form */}
-          <form className="login-form" onSubmit={handleSubmit}>
-            {/* Email Field */}
-            <div className="form-group">
+                    <form className="login-form" onSubmit={handleSubmit}>
+                        <div className="form-group">
               <div className="input-with-icon">
                 <input
                   type="email"
@@ -262,8 +242,7 @@ const LoginPage = ({ onLoginSuccess }) => {
               {errors.email && <div className="error-message">{errors.email}</div>}
             </div>
 
-            {/* Password Field */}
-            <div className="form-group">
+                        <div className="form-group">
               <div className="input-with-icon">
                 <input
                   type={showPassword ? "text" : "password"}
@@ -290,8 +269,7 @@ const LoginPage = ({ onLoginSuccess }) => {
               {errors.password && <div className="error-message">{errors.password}</div>}
             </div>
 
-            {/* Form Options */}
-            <div className="form-options">
+                        <div className="form-options">
               <label className="remember-checkbox">
                 <div className="checkbox-wrapper">
                   <input
@@ -321,8 +299,7 @@ const LoginPage = ({ onLoginSuccess }) => {
               </a>
             </div>
 
-            {/* Submit Button */}
-            <Button type="submit" className="login-button" disabled={isLoading}>
+                        <Button type="submit" className="login-button" disabled={isLoading}>
               {isLoading ? (
                 <>
                   <div className="spinner"></div>
@@ -336,11 +313,9 @@ const LoginPage = ({ onLoginSuccess }) => {
             </Button>
           </form>
 
-          {/* Divider */}
-          <div className="divider"></div>
+                    <div className="divider"></div>
 
-          {/* Sign Up Link */}
-          <div className="signup-link">
+                    <div className="signup-link">
             Don&apos;t have an account?
             <a
               href="/signup"

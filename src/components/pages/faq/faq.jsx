@@ -19,13 +19,18 @@ import {
   FiMessageSquare,
   FiCornerDownRight
 } from 'react-icons/fi';
-import '../../assets/styles/faq.css';
+import '../../../assets/styles/faq.css';
+
+import ContactModal from '../../modals/contactModal';
 
 const FAQPage = () => {
   const [activeIndex, setActiveIndex] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [selectedSuggestionIndex, setSelectedSuggestionIndex] = useState(-1);
+
+  const [isContactOpen, setIsContactOpen] = useState(false);
+
   const searchContainerRef = useRef(null);
   const suggestionsRef = useRef(null);
   const inputRef = useRef(null);
@@ -120,15 +125,11 @@ const FAQPage = () => {
       category: 'shipping'
     }
   ];
-
-  // Generate search suggestions based on query
   const searchSuggestions = useMemo(() => {
     if (!searchQuery.trim()) return [];
     
     const query = searchQuery.toLowerCase();
     const suggestions = [];
-    
-    // Add matching questions first
     faqs.forEach(faq => {
       if (faq.question.toLowerCase().includes(query)) {
         suggestions.push({
@@ -139,8 +140,6 @@ const FAQPage = () => {
         });
       }
     });
-    
-    // Add matching categories
     const categories = [...new Set(faqs.map(faq => faq.category))];
     categories.forEach(category => {
       if (category.toLowerCase().includes(query)) {
@@ -153,8 +152,6 @@ const FAQPage = () => {
         });
       }
     });
-    
-    // Add matching meta/tags
     faqs.forEach(faq => {
       if (faq.meta.toLowerCase().includes(query)) {
         suggestions.push({
@@ -166,7 +163,7 @@ const FAQPage = () => {
       }
     });
     
-    return suggestions.slice(0, 5); // Limit to 5 suggestions
+    return suggestions.slice(0, 5);
   }, [searchQuery, faqs]);
 
   const filteredFaqs = useMemo(() => {
@@ -180,8 +177,6 @@ const FAQPage = () => {
       faq.category.toLowerCase().includes(query)
     );
   }, [searchQuery, faqs]);
-
-  // Handle click outside to close suggestions
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (searchContainerRef.current && 
@@ -198,8 +193,6 @@ const FAQPage = () => {
       document.removeEventListener('touchstart', handleClickOutside);
     };
   }, []);
-
-  // Handle keyboard navigation for suggestions
   const handleKeyDown = (e) => {
     switch (e.key) {
       case 'ArrowDown':
@@ -240,6 +233,8 @@ const FAQPage = () => {
           setShowSuggestions(true);
         }
         break;
+      default:
+        break;
     }
   };
 
@@ -248,16 +243,15 @@ const FAQPage = () => {
     setShowSuggestions(false);
     setSelectedSuggestionIndex(-1);
     
-    // Find and open the corresponding FAQ
     const faqIndex = faqs.findIndex(faq => 
       faq.question === suggestion.text || 
       faq.category === suggestion.category
     );
+
     if (faqIndex !== -1) {
       setActiveIndex(faqIndex);
     }
     
-    // Scroll to the selected FAQ item
     setTimeout(() => {
       const selectedElement = document.querySelector(`.faq-item:nth-child(${faqIndex + 1})`);
       if (selectedElement) {
@@ -266,7 +260,7 @@ const FAQPage = () => {
     }, 100);
   };
 
-  const handleSuggestionClick = (suggestion, index) => {
+  const handleSuggestionClick = (suggestion) => {
     handleSuggestionSelect(suggestion);
   };
 
@@ -317,7 +311,6 @@ const FAQPage = () => {
 
   return (
     <div className="faq-page">
-      {/* Hero Section */}
       <section className="faq-hero">
         <div className='hero-icon-title-container'>
           <h1 className="faq-title">FAQs</h1>
@@ -327,7 +320,6 @@ const FAQPage = () => {
           Below are some of the most common questions patients ask about using Aaron Arredondo, along with clear answers to help guide you through your experience.
         </p>
         
-        {/* Search Bar with Suggestions */}
         <div className="search-container-faq" ref={searchContainerRef}>
           <div className="search-wrapper-faq">
             <FiSearch className="search-icon-faq" />
@@ -347,12 +339,12 @@ const FAQPage = () => {
                 className="clear-search-button"
                 onClick={handleClearSearch}
                 aria-label="Clear search"
+                type="button"
               >
                 <FiX />
               </button>
             )}
             
-            {/* Search Suggestions Dropdown */}
             {showSuggestions && searchSuggestions.length > 0 && (
               <div 
                 className={`search-suggestions ${showSuggestions ? 'active' : ''}`}
@@ -364,6 +356,7 @@ const FAQPage = () => {
                     className="close-suggestions-button"
                     onClick={() => setShowSuggestions(false)}
                     aria-label="Close suggestions"
+                    type="button"
                   >
                     <FiX />
                   </button>
@@ -372,9 +365,11 @@ const FAQPage = () => {
                   <div
                     key={`${suggestion.type}-${index}`}
                     className={`suggestion-item ${selectedSuggestionIndex === index ? 'selected' : ''}`}
-                    onClick={() => handleSuggestionClick(suggestion, index)}
+                    onClick={() => handleSuggestionClick(suggestion)}
                     onMouseEnter={() => setSelectedSuggestionIndex(index)}
                     onTouchStart={() => setSelectedSuggestionIndex(index)}
+                    role="button"
+                    tabIndex={0}
                   >
                     <span className="icon">
                       {suggestion.type === 'question' ? <FiCornerDownRight /> : suggestion.icon}
@@ -391,7 +386,6 @@ const FAQPage = () => {
         </div>
       </section>
 
-      {/* FAQ List */}
       <div className="faq-container">
         {filteredFaqs.length > 0 ? (
           filteredFaqs.map((faq, index) => (
@@ -405,6 +399,7 @@ const FAQPage = () => {
                 className="faq-question"
                 onClick={() => toggleFAQ(index)}
                 aria-expanded={activeIndex === index}
+                type="button"
               >
                 <div className="question-content">
                   <div className="question-header">
@@ -434,23 +429,35 @@ const FAQPage = () => {
         )}
       </div>
 
-      {/* Contact Section */}
-      <section className="contact-section">
+            <section className="contact-section">
         <div className="contact-header">
           <h3>Still Have Questions?</h3>
           <p className="contact-text">
             Can't find what you're looking for? Our support team is here to help you with any questions or concerns.
           </p>
         </div>
+
         <div className="contact-buttons">
-          <a href="/contact" className="contact-button primary">
+                    <button
+            type="button"
+            className="contact-button primary"
+            onClick={() => setIsContactOpen(true)}
+          >
             Contact Support
-          </a>
-          <a href="tel:+1-800-HEALTH" className="contact-button secondary">
-            Call Now
-          </a>
+          </button>
+
+        
         </div>
       </section>
+
+            <ContactModal
+        open={isContactOpen}
+        onClose={() => setIsContactOpen(false)}
+        onSubmit={(payload) => {
+          console.log("Support request:", payload);
+          setIsContactOpen(false);
+        }}
+      />
     </div>
   );
 };

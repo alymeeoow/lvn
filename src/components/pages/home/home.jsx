@@ -1,79 +1,75 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import '../../assets/styles/home.css';
-import ProductModal from '../modals/ProductModal';
-import { useCart } from '../context/cartContext';
-import Lvn from "../../assets/images/logo/lvn-no-no-pilit.png"
+import '../../../assets/styles/home.css';
+import ProductModal from '../../modals/ProductModal';
+import { useCart } from '../../context/cartContext';
+import Lvn from "../../../assets/images/logo/lvn-no-no-pilit.png"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { flushSync } from 'react-dom';
 import Swal from 'sweetalert2';
 import { FaUserMd, FaBox, FaHeadset } from "react-icons/fa"
 
-import Button from '../ui/button';
-
-// Import category images
-import WeightManagementImg from "../../assets/images/home/weight-management.jpg";
-import HairLossImg from "../../assets/images/home/hair-loss.jpg";
-import SexualHealthImg from "../../assets/images/home/sexual-health.jpg";
-import AcneImg from "../../assets/images/home/acne.jpg";
-import AntiAgingImg from "../../assets/images/home/anti-aging.jpg";
-import AppetiteImg from "../../assets/images/home/appetite-suppressant.png";
-import PeptidesImg from "../../assets/images/home/peptides.jpg";
-
-// Import product images
-import Tirzepatide from "../../assets/images/home/tirzepatide.png"
-import Semaglitude  from "../../assets/images/home/semaglitude.png"
-import SemaglitudeInj  from "../../assets/images/home/semaglutideInj.png"
-import Tablet  from "../../assets/images/home/tablet.jpg"
-import OralWeightLoss  from "../../assets/images/home/oral-weight-loss.jpg"
-import Liraglutide from "../../assets/images/home/liraglutide.png"
-import HairLossOralMedication from "../../assets/images/home/hair-loss-oral-medication.jpg"
-import HairLossScalpTopicalMedication from "../../assets/images/home/hair-loss-scalp-topical-medication.png"
-import PT141 from "../../assets/images/home/PT141.png"
-import OxytocinNasalSpray from "../../assets/images/home/oxytocin-nasal-spray.jpg"
-import Oxytocin100IU from "../../assets/images/home/oxytocin-100-iu-troche.png"
-import Oxybutynin from "../../assets/images/home/oxybutynin.png"
-import Tadalafill from "../../assets/images/home/tadalafill.png"
-import ErectileDysfunction from "../../assets/images/home/erectile-dysfunction.png"
-import AcneGel from "../../assets/images/home/acne-gel.jpg"
-import AcneCream from "../../assets/images/home/acne-cream.jpg"
-import Doxycycline from "../../assets/images/home/doxycycline.jpg"
-import Nicotinamide from "../../assets/images/home/nicotinamide.png"
-import LowDoseNaltrexne from "../../assets/images/home/low-dose-naltrexne.jpg"
-import AntiAgingTopicalGel from "../../assets/images/home/anti-aging-topical-gel.jpg"
-import NadInjection from "../../assets/images/home/nad-injection.png"
-import AntiAgingTopicalCream from "../../assets/images/home/anti-aging-topical-cream.jpg"
-import VitaminB12 from "../../assets/images/home/vitamin-b12.png"
-import NadPatches from "../../assets/images/home/nad-patches.png"
-import NadNasalSpray from "../../assets/images/home/nad-nasal-spray.png"
-import Methylene from "../../assets/images/home/methyline-blue-capsule.jpg"
-import Gluta from "../../assets/images/home/gluta.png"
-import Sermorelin from "../../assets/images/home/sermorelin.png"
-import Lcarnitine from "../../assets/images/home/l-carnitine.png"
-import SkinnyShotsMicc from "../../assets/images/home/skinny-shots-micc.png"
-import SkinnyShots from "../../assets/images/home/skinny-shots.png"
-import SermorelinSublingual from "../../assets/images/home/sermorelin-sublingual.jpg"
-import PinealonPE22 from "../../assets/images/home/pinealon.png"
-import MK677 from "../../assets/images/home/mk-677.png"
-import SermorelinInjection from "../../assets/images/home/sermorelin-injection.png"
-import CjcIpamorelin from "../../assets/images/home/cjc-ipamorelin.png"
-import BP157Tb500 from "../../assets/images/home/bp-157-tb-500.png"
-import BPC157Kpvtb500 from "../../assets/images/home/bpc-157-kpv-tb-500.png"
-import BPC157 from "../../assets/images/home/bpc-157.png"
-import BPC157GhkUKpvTb500 from "../../assets/images/home/bpc-157-ghk-u-kpv-tb-500.png"
-import GHKEpitalon from "../../assets/images/home/ghk-cu-epitalon.png"
-import BPC157AcetateCapsule from "../../assets/images/home/bpc-157-acetate-capsule.png"
-import GhkCu from "../../assets/images/home/ghk-cu.png"
-import IgfLr3 from "../../assets/images/home/igf-lr3.png"
-import SemaxSelank from "../../assets/images/home/semax-selank.png"
-import TesamorelinIpamorelin from "../../assets/images/home/tesamorelin-ipamorelin.png"
-import DsipBpcCjc from "../../assets/images/home/dsip-bpc-cjc.png"
-import Dsip from "../../assets/images/home/dsip-bpc-cjc.png"
-import MotsC from "../../assets/images/home/mots-c.png"
-import Epitalon from "../../assets/images/home/epitalon.png"
-import ThymosinA1 from "../../assets/images/home/thymosin-a-1.png"
-import Ll37 from "../../assets/images/home/ll-37.png"
-import Tesamorelin from "../../assets/images/home/tesamorelin.png"
+import Button from '../../ui/button';
+import WeightManagementImg from "../../../assets/images/home/weight-management.jpg";
+import HairLossImg from "../../../assets/images/home/hair-loss.jpg";
+import SexualHealthImg from "../../../assets/images/home/sexual-health.jpg";
+import AcneImg from "../../../assets/images/home/acne.jpg";
+import AntiAgingImg from "../../../assets/images/home/anti-aging.jpg";
+import AppetiteImg from "../../../assets/images/home/appetite-suppressant.png";
+import PeptidesImg from "../../../assets/images/home/peptides.jpg";
+import Tirzepatide from "../../../assets/images/home/tirzepatide.png"
+import Semaglitude  from "../../../assets/images/home/semaglitude.png"
+import SemaglitudeInj  from "../../../assets/images/home/semaglutideInj.png"
+import Tablet  from "../../../assets/images/home/tablet.jpg"
+import OralWeightLoss  from "../../../assets/images/home/oral-weight-loss.jpg"
+import Liraglutide from "../../../assets/images/home/liraglutide.png"
+import HairLossOralMedication from "../../../assets/images/home/hair-loss-oral-medication.jpg"
+import HairLossScalpTopicalMedication from "../../../assets/images/home/hair-loss-scalp-topical-medication.png"
+import PT141 from "../../../assets/images/home/PT141.png"
+import OxytocinNasalSpray from "../../../assets/images/home/oxytocin-nasal-spray.jpg"
+import Oxytocin100IU from "../../../assets/images/home/oxytocin-100-iu-troche.png"
+import Oxybutynin from "../../../assets/images/home/oxybutynin.png"
+import Tadalafill from "../../../assets/images/home/tadalafill.png"
+import ErectileDysfunction from "../../../assets/images/home/erectile-dysfunction.png"
+import AcneGel from "../../../assets/images/home/acne-gel.jpg"
+import AcneCream from "../../../assets/images/home/acne-cream.jpg"
+import Doxycycline from "../../../assets/images/home/doxycycline.jpg"
+import Nicotinamide from "../../../assets/images/home/nicotinamide.png"
+import LowDoseNaltrexne from "../../../assets/images/home/low-dose-naltrexne.jpg"
+import AntiAgingTopicalGel from "../../../assets/images/home/anti-aging-topical-gel.jpg"
+import NadInjection from "../../../assets/images/home/nad-injection.png"
+import AntiAgingTopicalCream from "../../../assets/images/home/anti-aging-topical-cream.jpg"
+import VitaminB12 from "../../../assets/images/home/vitamin-b12.png"
+import NadPatches from "../../../assets/images/home/nad-patches.png"
+import NadNasalSpray from "../../../assets/images/home/nad-nasal-spray.png"
+import Methylene from "../../../assets/images/home/methyline-blue-capsule.jpg"
+import Gluta from "../../../assets/images/home/gluta.png"
+import Sermorelin from "../../../assets/images/home/sermorelin.png"
+import Lcarnitine from "../../../assets/images/home/l-carnitine.png"
+import SkinnyShotsMicc from "../../../assets/images/home/skinny-shots-micc.png"
+import SkinnyShots from "../../../assets/images/home/skinny-shots.png"
+import SermorelinSublingual from "../../../assets/images/home/sermorelin-sublingual.jpg"
+import PinealonPE22 from "../../../assets/images/home/pinealon.png"
+import MK677 from "../../../assets/images/home/mk-677.png"
+import SermorelinInjection from "../../../assets/images/home/sermorelin-injection.png"
+import CjcIpamorelin from "../../../assets/images/home/cjc-ipamorelin.png"
+import BP157Tb500 from "../../../assets/images/home/bp-157-tb-500.png"
+import BPC157Kpvtb500 from "../../../assets/images/home/bpc-157-kpv-tb-500.png"
+import BPC157 from "../../../assets/images/home/bpc-157.png"
+import BPC157GhkUKpvTb500 from "../../../assets/images/home/bpc-157-ghk-u-kpv-tb-500.png"
+import GHKEpitalon from "../../../assets/images/home/ghk-cu-epitalon.png"
+import BPC157AcetateCapsule from "../../../assets/images/home/bpc-157-acetate-capsule.png"
+import GhkCu from "../../../assets/images/home/ghk-cu.png"
+import IgfLr3 from "../../../assets/images/home/igf-lr3.png"
+import SemaxSelank from "../../../assets/images/home/semax-selank.png"
+import TesamorelinIpamorelin from "../../../assets/images/home/tesamorelin-ipamorelin.png"
+import DsipBpcCjc from "../../../assets/images/home/dsip-bpc-cjc.png"
+import Dsip from "../../../assets/images/home/dsip-bpc-cjc.png"
+import MotsC from "../../../assets/images/home/mots-c.png"
+import Epitalon from "../../../assets/images/home/epitalon.png"
+import ThymosinA1 from "../../../assets/images/home/thymosin-a-1.png"
+import Ll37 from "../../../assets/images/home/ll-37.png"
+import Tesamorelin from "../../../assets/images/home/tesamorelin.png"
        
 import { 
   FiTruck, 
@@ -232,8 +228,6 @@ const typeIcons = {
   'Oral': <GiMedicinePills />,
   'Nasal': <GiSpray />
 };
-
-// Create a completely static product card component
 const StaticProductCard = React.memo(({ 
   product, 
   onProductClick, 
@@ -369,8 +363,6 @@ const Homepage = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [activeCategory, setActiveCategory] = useState('weight');
-  
-  // Store carousel references
   const carouselRefs = {
     weight: useRef(null),
     hair: useRef(null),
@@ -380,8 +372,6 @@ const Homepage = () => {
     appetite: useRef(null),
     peptides: useRef(null)
   };
-
-  // Store category section references
   const categoryRefs = {
     weight: useRef(null),
     hair: useRef(null),
@@ -391,14 +381,8 @@ const Homepage = () => {
     appetite: useRef(null),
     peptides: useRef(null)
   };
-
-  // Store a single toast ID to replace previous toasts
   const toastIdRef = useRef(null);
-  
-  // Store cart status per product
   const [productCartStatus, setProductCartStatus] = useState({});
-  
-  // Initialize cart status
   useEffect(() => {
     const status = {};
     cartItems.forEach(item => {
@@ -423,7 +407,6 @@ const Homepage = () => {
   }, []);
 
   const showAddToCartConfirmation = (product) => {
-    // Create responsive HTML with CSS classes instead of inline styles
     const responsiveHtml = `
       <div class="medical-assessment-steps">
         <div class="assessment-step">
@@ -689,7 +672,6 @@ const Homepage = () => {
       }
     }).then((result) => {
       if (result.isConfirmed) {
-        // Add to cart after confirmation
         actuallyAddToCart(product);
       }
     });
@@ -700,15 +682,9 @@ const Homepage = () => {
       ...product,
       image: productImages[product.name] || productImages['default']
     };
-    
-    // Get current quantity in cart
     const existingItem = cartItems.find(item => item.id === product.id);
     const currentQuantity = existingItem ? existingItem.quantity : 0;
-    
-    // Add to cart
     addToCart(cartProduct, 1);
-    
-    // Show toast notification
     const message = existingItem 
       ? `${product.name} quantity updated to ${currentQuantity + 1}!`
       : `${product.name} added to cart!`;
@@ -887,8 +863,7 @@ const Homepage = () => {
       </button>
     </div>
 
-    {/* Optional trust row (makes it feel more “complete” and conversion-friendly) */}
-  
+      
   </div>
 
   <div className="hero-image">
@@ -1668,7 +1643,7 @@ const Homepage = () => {
 
   return (
     <div className="homepage">
-      {/* Toast Container with single toast support */}
+
       <ToastContainer
         position="top-right"
         autoClose={3000}

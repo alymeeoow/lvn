@@ -1,7 +1,7 @@
-/* LoginButton.css - Clean login button styles */
+
 
 .login-btn {
-  /* Base styles */
+
   background: var(--primary-color);
   color: var(--text-white);
   border: none;
@@ -24,20 +24,20 @@
   box-shadow: 0 2px 8px rgba(58, 123, 213, 0.15);
 }
 
-/* Simple hover - just darkens the button */
+
 .login-btn:hover {
   background: color-mix(in srgb, var(--primary-color) 90%, black 10%);
   box-shadow: 0 4px 12px rgba(58, 123, 213, 0.2);
 }
 
-/* Active state */
+
 .login-btn:active {
   background: color-mix(in srgb, var(--primary-color) 80%, black 20%);
   transform: scale(0.98);
   box-shadow: 0 2px 6px rgba(58, 123, 213, 0.15);
 }
 
-/* Focus state for accessibility */
+
 .login-btn:focus {
   outline: 2px solid var(--primary-color);
   outline-offset: 2px;
@@ -52,7 +52,7 @@
   outline-offset: 2px;
 }
 
-/* Disabled state */
+
 .login-btn:disabled {
   background: var(--gray-300);
   color: var(--gray-500);
@@ -67,14 +67,14 @@
   box-shadow: none;
 }
 
-/* Small variant */
+
 .login-btn-small {
   padding: 0.65rem 1.5rem;
   font-size: 0.9rem;
   border-radius: 8px;
 }
 
-/* Large variant */
+
 .login-btn-large {
   padding: 1rem 2.5rem;
   font-size: 1.1rem;
@@ -82,14 +82,14 @@
   border-radius: 12px;
 }
 
-/* Full width variant */
+
 .login-btn-full {
   width: 100%;
   display: flex;
   justify-content: center;
 }
 
-/* Outline variant - Clean hover */
+
 .login-btn-outline {
   background: transparent;
   color: var(--primary-color);
@@ -109,7 +109,7 @@
   transform: scale(0.98);
 }
 
-/* Ghost variant */
+
 .login-btn-ghost {
   background: transparent;
   color: var(--primary-color);
@@ -127,7 +127,7 @@
   transform: scale(0.98);
 }
 
-/* With icon */
+
 .login-btn-icon {
   display: inline-flex;
   align-items: center;
@@ -145,7 +145,7 @@
   transform: translateX(2px);
 }
 
-/* Responsive adjustments */
+
 @media (max-width: 767px) {
   .login-btn {
     padding: 0.75rem 1.75rem;
@@ -166,7 +166,7 @@
   }
 }
 
-/* Dark mode adjustments - simple darkening */
+
 @media (prefers-color-scheme: dark) {
   .login-btn {
     background: var(--primary-color);
@@ -190,7 +190,7 @@
   }
 }
 
-/* Fallback for browsers that don't support color-mix() */
+
 @supports not (background: color-mix(in srgb, black, white)) {
   .login-btn:hover {
     background: var(--primary-dark);
@@ -223,7 +223,7 @@
   }
 }
 
-/* Animation for loading state */
+
 .login-btn-loading {
   position: relative;
   color: transparent !important;
@@ -259,7 +259,7 @@
   }
 }
 
-/* Success state */
+
 .login-btn-success {
   background: var(--success-color);
 }
@@ -268,7 +268,7 @@
   background: color-mix(in srgb, var(--success-color) 90%, black 10%);
 }
 
-/* Error state */
+
 .login-btn-error {
   background: var(--error-color);
 }
@@ -277,7 +277,7 @@
   background: color-mix(in srgb, var(--error-color) 90%, black 10%);
 }
 
-/* Accessibility */
+
 @media (prefers-reduced-motion: reduce) {
   .login-btn {
     transition: none;

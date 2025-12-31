@@ -12,7 +12,6 @@ export const useCart = () => {
 
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState(() => {
-    // Load cart from localStorage on first render
     try {
       const savedCart = localStorage.getItem('cart');
       return savedCart ? JSON.parse(savedCart) : [];
@@ -25,8 +24,6 @@ export const CartProvider = ({ children }) => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [cartCount, setCartCount] = useState(0);
   const [totalQuantity, setTotalQuantity] = useState(0);
-
-  // Save cart & update counts whenever cartItems changes
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(cartItems));
 

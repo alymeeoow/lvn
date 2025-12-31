@@ -1,66 +1,66 @@
 import React, { useState, useMemo, useEffect, useRef, useCallback } from 'react';
-import '../../assets/styles/categories.css';
-import ProductModal from '../modals/ProductModal';
-import Button from '../ui/button';
-import { useCart } from '../context/cartContext';
+import '../../../assets/styles/categories.css';
+import ProductModal from '../../modals/ProductModal';
+import Button from '../../ui/button';
+import { useCart } from '../../context/cartContext';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Swal from 'sweetalert2';
 
-// Import product images
-import Tirzepatide from "../../assets/images/home/tirzepatide.png"
-import Semaglitude from "../../assets/images/home/semaglitude.png"
-import SemaglitudeInj from "../../assets/images/home/semaglutideInj.png"
-import Tablet from "../../assets/images/home/tablet.jpg"
-import OralWeightLoss from "../../assets/images/home/oral-weight-loss.jpg"
-import Liraglutide from "../../assets/images/home/liraglutide.png"
-import HairLossOralMedication from "../../assets/images/home/hair-loss-oral-medication.jpg"
-import HairLossScalpTopicalMedication from "../../assets/images/home/hair-loss-scalp-topical-medication.png"
-import PT141 from "../../assets/images/home/PT141.png"
-import OxytocinNasalSpray from "../../assets/images/home/oxytocin-nasal-spray.jpg"
-import Oxytocin100IU from "../../assets/images/home/oxytocin-100-iu-troche.png"
-import Oxybutynin from "../../assets/images/home/oxybutynin.png"
-import Tadalafill from "../../assets/images/home/tadalafill.png"
-import ErectileDysfunction from "../../assets/images/home/erectile-dysfunction.png"
-import AcneGel from "../../assets/images/home/acne-gel.jpg"
-import AcneCream from "../../assets/images/home/acne-cream.jpg"
-import Doxycycline from "../../assets/images/home/doxycycline.jpg"
-import Nicotinamide from "../../assets/images/home/nicotinamide.png"
-import LowDoseNaltrexne from "../../assets/images/home/low-dose-naltrexne.jpg"
-import AntiAgingTopicalGel from "../../assets/images/home/anti-aging-topical-gel.jpg"
-import NadInjection from "../../assets/images/home/nad-injection.png"
-import AntiAgingTopicalCream from "../../assets/images/home/anti-aging-topical-cream.jpg"
-import VitaminB12 from "../../assets/images/home/vitamin-b12.png"
-import NadPatches from "../../assets/images/home/nad-patches.png"
-import NadNasalSpray from "../../assets/images/home/nad-nasal-spray.png"
-import Methylene from "../../assets/images/home/methyline-blue-capsule.jpg"
-import Gluta from "../../assets/images/home/gluta.png"
-import Sermorelin from "../../assets/images/home/sermorelin.png"
-import Lcarnitine from "../../assets/images/home/l-carnitine.png"
-import SkinnyShotsMicc from "../../assets/images/home/skinny-shots-micc.png"
-import SkinnyShots from "../../assets/images/home/skinny-shots.png"
-import SermorelinSublingual from "../../assets/images/home/sermorelin-sublingual.jpg"
-import PinealonPE22 from "../../assets/images/home/pinealon.png"
-import MK677 from "../../assets/images/home/mk-677.png"
-import SermorelinInjection from "../../assets/images/home/sermorelin-injection.png"
-import CjcIpamorelin from "../../assets/images/home/cjc-ipamorelin.png"
-import BP157Tb500 from "../../assets/images/home/bp-157-tb-500.png"
-import BPC157Kpvtb500 from "../../assets/images/home/bpc-157-kpv-tb-500.png"
-import BPC157 from "../../assets/images/home/bpc-157.png"
-import BPC157GhkUKpvTb500 from "../../assets/images/home/bpc-157-ghk-u-kpv-tb-500.png"
-import GHKEpitalon from "../../assets/images/home/ghk-cu-epitalon.png"
-import BPC157AcetateCapsule from "../../assets/images/home/bpc-157-acetate-capsule.png"
-import GhkCu from "../../assets/images/home/ghk-cu.png"
-import IgfLr3 from "../../assets/images/home/igf-lr3.png"
-import SemaxSelank from "../../assets/images/home/semax-selank.png"
-import TesamorelinIpamorelin from "../../assets/images/home/tesamorelin-ipamorelin.png"
-import DsipBpcCjc from "../../assets/images/home/dsip-bpc-cjc.png"
-import Dsip from "../../assets/images/home/dsip-bpc-cjc.png"
-import MotsC from "../../assets/images/home/mots-c.png"
-import Epitalon from "../../assets/images/home/epitalon.png"
-import ThymosinA1 from "../../assets/images/home/thymosin-a-1.png"
-import Ll37 from "../../assets/images/home/ll-37.png"
-import Tesamorelin from "../../assets/images/home/tesamorelin.png"
+import Tirzepatide from "../../../assets/images/home/tirzepatide.png"
+import Semaglitude  from "../../../assets/images/home/semaglitude.png"
+import SemaglitudeInj  from "../../../assets/images/home/semaglutideInj.png"
+import Tablet  from "../../../assets/images/home/tablet.jpg"
+import OralWeightLoss  from "../../../assets/images/home/oral-weight-loss.jpg"
+import Liraglutide from "../../../assets/images/home/liraglutide.png"
+import HairLossOralMedication from "../../../assets/images/home/hair-loss-oral-medication.jpg"
+import HairLossScalpTopicalMedication from "../../../assets/images/home/hair-loss-scalp-topical-medication.png"
+import PT141 from "../../../assets/images/home/PT141.png"
+import OxytocinNasalSpray from "../../../assets/images/home/oxytocin-nasal-spray.jpg"
+import Oxytocin100IU from "../../../assets/images/home/oxytocin-100-iu-troche.png"
+import Oxybutynin from "../../../assets/images/home/oxybutynin.png"
+import Tadalafill from "../../../assets/images/home/tadalafill.png"
+import ErectileDysfunction from "../../../assets/images/home/erectile-dysfunction.png"
+import AcneGel from "../../../assets/images/home/acne-gel.jpg"
+import AcneCream from "../../../assets/images/home/acne-cream.jpg"
+import Doxycycline from "../../../assets/images/home/doxycycline.jpg"
+import Nicotinamide from "../../../assets/images/home/nicotinamide.png"
+import LowDoseNaltrexne from "../../../assets/images/home/low-dose-naltrexne.jpg"
+import AntiAgingTopicalGel from "../../../assets/images/home/anti-aging-topical-gel.jpg"
+import NadInjection from "../../../assets/images/home/nad-injection.png"
+import AntiAgingTopicalCream from "../../../assets/images/home/anti-aging-topical-cream.jpg"
+import VitaminB12 from "../../../assets/images/home/vitamin-b12.png"
+import NadPatches from "../../../assets/images/home/nad-patches.png"
+import NadNasalSpray from "../../../assets/images/home/nad-nasal-spray.png"
+import Methylene from "../../../assets/images/home/methyline-blue-capsule.jpg"
+import Gluta from "../../../assets/images/home/gluta.png"
+import Sermorelin from "../../../assets/images/home/sermorelin.png"
+import Lcarnitine from "../../../assets/images/home/l-carnitine.png"
+import SkinnyShotsMicc from "../../../assets/images/home/skinny-shots-micc.png"
+import SkinnyShots from "../../../assets/images/home/skinny-shots.png"
+import SermorelinSublingual from "../../../assets/images/home/sermorelin-sublingual.jpg"
+import PinealonPE22 from "../../../assets/images/home/pinealon.png"
+import MK677 from "../../../assets/images/home/mk-677.png"
+import SermorelinInjection from "../../../assets/images/home/sermorelin-injection.png"
+import CjcIpamorelin from "../../../assets/images/home/cjc-ipamorelin.png"
+import BP157Tb500 from "../../../assets/images/home/bp-157-tb-500.png"
+import BPC157Kpvtb500 from "../../../assets/images/home/bpc-157-kpv-tb-500.png"
+import BPC157 from "../../../assets/images/home/bpc-157.png"
+import BPC157GhkUKpvTb500 from "../../../assets/images/home/bpc-157-ghk-u-kpv-tb-500.png"
+import GHKEpitalon from "../../../assets/images/home/ghk-cu-epitalon.png"
+import BPC157AcetateCapsule from "../../../assets/images/home/bpc-157-acetate-capsule.png"
+import GhkCu from "../../../assets/images/home/ghk-cu.png"
+import IgfLr3 from "../../../assets/images/home/igf-lr3.png"
+import SemaxSelank from "../../../assets/images/home/semax-selank.png"
+import TesamorelinIpamorelin from "../../../assets/images/home/tesamorelin-ipamorelin.png"
+import DsipBpcCjc from "../../../assets/images/home/dsip-bpc-cjc.png"
+import Dsip from "../../../assets/images/home/dsip-bpc-cjc.png"
+import MotsC from "../../../assets/images/home/mots-c.png"
+import Epitalon from "../../../assets/images/home/epitalon.png"
+import ThymosinA1 from "../../../assets/images/home/thymosin-a-1.png"
+import Ll37 from "../../../assets/images/home/ll-37.png"
+import Tesamorelin from "../../../assets/images/home/tesamorelin.png"
+
 
 import { 
   FiSearch,
@@ -81,8 +81,6 @@ import {
   GiChemicalDrop
 } from 'react-icons/gi';
 import { TbBandage } from 'react-icons/tb';
-
-// Import all product images
 const productImages = {
   'Tirzepatide': Tirzepatide,
   'Semaglutide Sublingual': Semaglitude,
@@ -140,8 +138,6 @@ const productImages = {
   'Tesamorelin': Tesamorelin,
   'default': 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&h=300&fit=crop&auto=format'
 };
-
-// Skeleton Loading Components
 const SkeletonSidebar = () => (
   <div className="filters-sidebar skeleton-sidebar">
     <div className="skeleton-header">
@@ -239,20 +235,14 @@ const Categories = () => {
   const [wishlistItems, setWishlistItems] = useState(new Set());
   const [isLoading, setIsLoading] = useState(true);
   const [imagesLoaded, setImagesLoaded] = useState(false);
-
-  // Store a single toast ID to replace previous toasts
   const toastIdRef = useRef(null);
   
   const productsGridRef = useRef(null);
   const prevScrollY = useRef(0);
-
-  // Simulate loading for demonstration
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 1500); // Simulate 1.5 second loading time
-
-    // Preload images
     const imageUrls = Object.values(productImages);
     let loadedCount = 0;
     
@@ -272,29 +262,20 @@ const Categories = () => {
         }
       };
     });
-
-    // If no images to load, set loaded to true immediately
     if (imageUrls.length === 0) {
       setImagesLoaded(true);
     }
 
     return () => clearTimeout(timer);
   }, []);
-
-  // Check if a product is in the cart
   const isProductInCart = (productId) => {
     return cartItems.some(item => item.id === productId);
   };
-
-  // Get cart quantity for a product
   const getCartQuantity = (productId) => {
     const item = cartItems.find(item => item.id === productId);
     return item ? item.quantity : 0;
   };
-
-  // All 54 products data
   const allProducts = [
-    // Weight Management (7 products)
     {
       id: 'weight-1',
       name: 'Tirzepatide',
@@ -386,8 +367,6 @@ const Categories = () => {
       deliveryTime: '3-5 days',
       features: ['Effective Weight Loss', 'Appetite Regulation', 'Improved Metabolic Health']
     },
-    
-    // Hair Loss (2 products)
     {
       id: 'hair-1',
       name: 'Hair Loss Oral Medication',
@@ -414,8 +393,6 @@ const Categories = () => {
       deliveryTime: '1-2 days',
       features: ['Targets hormonal & vascular causes', 'Reduces scalp irritation', 'Supports thicker, denser hair']
     },
-    
-    // Sexual Health (6 products)
     {
       id: 'sexual-1',
       name: 'PT-141 (bremelanotide) Injectable',
@@ -494,8 +471,6 @@ const Categories = () => {
       deliveryTime: '2-3 days',
       features: ['Long-lasting effect (up to ~36 hours)', 'Improves sexual confidence and satisfaction', 'Convenient oral tablet']
     },
-    
-    // Acne (3 products)
     {
       id: 'acne-1',
       name: 'Acne Gel',
@@ -535,8 +510,6 @@ const Categories = () => {
       deliveryTime: '2-3 days',
       features: ['Treats moderate to severe acne', 'Helps manage bacterial skin conditions', 'Convenient once-daily oral tablet']
     },
-    
-    // Anti-Aging (10 products)
     {
       id: 'aging-1',
       name: 'Nicotinamide Riboside (NR) Injectable',
@@ -667,8 +640,6 @@ const Categories = () => {
       deliveryTime: '3-4 days',
       features: ['Powerful antioxidant support for cellular protection', 'Aids detoxification, immune health, and cellular repair', 'Promotes brighter skin and overall vitality']
     },
-    
-    // Appetite Suppressant (4 products)
     {
       id: 'appetite-1',
       name: 'Sermorelin Troche',
@@ -721,8 +692,6 @@ const Categories = () => {
       deliveryTime: '1-2 days',
       features: ['Weekly Injection', 'Energy Support', 'Appetite Control']
     },
-    
-    // Peptides (22 products)
     {
       id: 'peptide-1',
       name: 'Sermorelin Sublingual',
@@ -1010,12 +979,8 @@ const Categories = () => {
       features: ['Personalized dosing based on your goals', 'Provider-monitored use and adjustments', 'Integrated with nutrition, movement, and sleep']
     }
   ];
-
-  // Filter and sort products
   const filteredProducts = useMemo(() => {
     let filtered = [...allProducts];
-    
-    // Search filter
     if (searchQuery) {
       const query = searchQuery.toLowerCase();
       filtered = filtered.filter(product =>
@@ -1024,13 +989,9 @@ const Categories = () => {
         product.features.some(feature => feature.toLowerCase().includes(query))
       );
     }
-    
-    // Category filter
     if (selectedCategories.length > 0) {
       filtered = filtered.filter(product => selectedCategories.includes(product.category));
     }
-    
-    // Sort
     if (priceSort === 'price-low') {
       filtered.sort((a, b) => a.price - b.price);
     } else if (priceSort === 'price-high') {
@@ -1043,8 +1004,6 @@ const Categories = () => {
     
     return filtered;
   }, [searchQuery, selectedCategories, priceSort]);
-
-  // Categories data
   const categories = useMemo(() => [
     {
       id: 'weight',
@@ -1096,15 +1055,11 @@ const Categories = () => {
       color: '#fd7e14'
     }
   ], [allProducts]);
-
-  // Save scroll position before filter changes
   useEffect(() => {
     if (productsGridRef.current) {
       prevScrollY.current = window.scrollY || productsGridRef.current.scrollTop;
     }
   }, [searchQuery, selectedCategories, priceSort]);
-
-  // Restore scroll position after render
   useEffect(() => {
     const restoreScroll = () => {
       requestAnimationFrame(() => {
@@ -1134,7 +1089,6 @@ const Categories = () => {
   };
 
   const showAddToCartConfirmation = (product) => {
-    // Create responsive HTML with CSS classes instead of inline styles
     const responsiveHtml = `
       <div class="medical-assessment-steps">
         <div class="assessment-step">
@@ -1397,7 +1351,6 @@ const Categories = () => {
       }
     }).then((result) => {
       if (result.isConfirmed) {
-        // Add to cart after confirmation
         actuallyAddToCart(product);
       }
     });
@@ -1408,15 +1361,9 @@ const Categories = () => {
       ...product,
       image: productImages[product.name] || productImages['default']
     };
-    
-    // Get current quantity in cart
     const existingItem = cartItems.find(item => item.id === product.id);
     const currentQuantity = existingItem ? existingItem.quantity : 0;
-    
-    // Add to cart
     addToCart(cartProduct, 1);
-    
-    // Show toast notification
     const message = existingItem 
       ? `${product.name} quantity updated to ${currentQuantity + 1}!`
       : `${product.name} added to cart!`;
@@ -1447,16 +1394,11 @@ const Categories = () => {
     if (e) {
       e.stopPropagation();
     }
-
-    // Check if product is already in cart
     const existingItem = cartItems.find(item => item.id === product.id);
     const currentQuantity = existingItem ? existingItem.quantity : 0;
-    
-    // Show confirmation modal for first time adding to cart
     if (!existingItem || currentQuantity === 0) {
       showAddToCartConfirmation(product);
     } else {
-      // If already in cart, just add another unit without showing confirmation
       actuallyAddToCart(product);
     }
   }, [cartItems, actuallyAddToCart]);
@@ -1513,33 +1455,20 @@ const Categories = () => {
   if (isLoading || !imagesLoaded) {
   return (
     <div className="categories-page skeleton-page">
-      <ToastContainer
-        position="top-right"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
+     
 
       <div
         className="categories-content skeleton-content"
-        style={{ marginTop: '6.5rem' }} // ← KEY FIX
+        style={{ marginTop: '6.5rem' }} 
       >
-        {/* Mobile Filter Skeleton */}
-        <div className="mobile-filter-toggle skeleton-mobile-filter">
+                <div className="mobile-filter-toggle skeleton-mobile-filter">
           <button className="filter-toggle-btn skeleton-button"></button>
           <div className="mobile-sort">
             <div className="sort-select skeleton-select"></div>
           </div>
         </div>
 
-        {/* Sidebar Skeleton */}
-        <div className="filters-sidebar skeleton-sidebar">
+                <div className="filters-sidebar skeleton-sidebar">
           <div className="filters-header">
             <h3 className="filters-title">
               <span className="skeleton-icon"></span>
@@ -1573,8 +1502,7 @@ const Categories = () => {
           </div>
         </div>
 
-        {/* Main Content Skeleton */}
-        <div className="products-main">
+                <div className="products-main">
           <div className="results-header skeleton-results-header">
             <div className="results-header-left">
               <h2>
@@ -1639,8 +1567,7 @@ const Categories = () => {
 
   return (
     <div className="categories-page">
-      {/* Toast Container */}
-      <ToastContainer
+            <ToastContainer
         position="top-right"
         autoClose={3000}
         hideProgressBar={false}
@@ -1653,14 +1580,11 @@ const Categories = () => {
         theme="light"
       />
       
-      {/* Header */}
-      <div className="categories-header">
-        {/* Header content if any */}
-      </div>
+            <div className="categories-header">
+              </div>
 
       <div className="categories-content">
-        {/* Mobile Filter Button */}
-        <div className="mobile-filter-toggle">
+                <div className="mobile-filter-toggle">
           <button 
             className="filter-toggle-btn"
             onClick={() => setShowMobileFilters(true)}
@@ -1682,8 +1606,7 @@ const Categories = () => {
           </div>
         </div>
 
-        {/* Filters Sidebar */}
-        <div className={`filters-sidebar ${showMobileFilters ? 'mobile-open' : ''}`}>
+                <div className={`filters-sidebar ${showMobileFilters ? 'mobile-open' : ''}`}>
           <div className="filters-header">
             <h3 className="filters-title">
               <FiFilter /> Filters
@@ -1694,8 +1617,7 @@ const Categories = () => {
           </div>
           
           <div className="filters-content">
-            {/* Categories Filter */}
-            <div className="filter-section">
+                        <div className="filter-section">
               <h4 className="filter-section-title">Treatment Categories</h4>
               <div className="category-filters">
                 {categories.map(category => (
@@ -1714,8 +1636,7 @@ const Categories = () => {
               </div>
             </div>
 
-            {/* Sort Section */}
-            <div className="filter-section">
+                        <div className="filter-section">
               <h4 className="filter-section-title">Sort By</h4>
               <div className="sort-options">
                 <button 
@@ -1751,8 +1672,7 @@ const Categories = () => {
               </div>
             </div>
 
-            {/* Active Filters */}
-            {(selectedCategories.length > 0 || searchQuery || priceSort !== 'default') && (
+                        {(selectedCategories.length > 0 || searchQuery || priceSort !== 'default') && (
               <div className="filter-section">
                 <div className="active-filters">
                   {selectedCategories.map(categoryId => {
@@ -1786,15 +1706,12 @@ const Categories = () => {
           </div>
         </div>
 
-        {/* Mobile Overlay */}
-        {showMobileFilters && (
+                {showMobileFilters && (
           <div className="mobile-overlay" onClick={() => setShowMobileFilters(false)} />
         )}
 
-        {/* Products Main Section with Search */}
-        <div className="products-main" ref={productsGridRef}>
-          {/* Results Header with Search Bar */}
-          <div className="results-header">
+                <div className="products-main" ref={productsGridRef}>
+                    <div className="results-header">
             <div className="results-header-left">
               <h2>
                 {selectedCategories.length === 0 ? 'All Treatments' : 
@@ -1926,8 +1843,7 @@ const Categories = () => {
         </div>
       </div>
 
-      {/* Product Modal */}
-      {showModal && selectedProduct && (
+            {showModal && selectedProduct && (
         <ProductModal 
           product={selectedProduct}
           onClose={handleCloseModal}

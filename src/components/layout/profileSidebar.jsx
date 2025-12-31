@@ -1,49 +1,54 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
-const ProfileSidebar = ({ active = "profile", onChange, onLogout }) => {
+const ProfileSidebar = ({ onLogout }) => {
+  const navigate = useNavigate();
+
   return (
     <aside className="profile-sidebar">
       <h3 className="profile-sidebar-title">Account</h3>
 
       <button
-        className={`profile-side-item ${active === "profile" ? "active" : ""}`}
-        onClick={() => onChange("profile")}
+        className="profile-side-item"
+        onClick={() => navigate("/profile")}
+        type="button"
       >
         Profile
       </button>
 
       <button
-        className={`profile-side-item ${active === "addresses" ? "active" : ""}`}
-        onClick={() => onChange("addresses")}
+        className="profile-side-item"
+        onClick={() => navigate("/addresses")}
+        type="button"
       >
         My Addresses
       </button>
 
       <button
-        className={`profile-side-item ${active === "password" ? "active" : ""}`}
-        onClick={() => onChange("password")}
+        className="profile-side-item"
+        onClick={() => navigate("/changepass")}
+        type="button"
       >
         Change password
       </button>
 
       <button
-        className={`profile-side-item ${active === "payment" ? "active" : ""}`}
-        onClick={() => onChange("payment")}
+        className="profile-side-item"
+        onClick={() => navigate("/payment")}
+        type="button"
       >
         Payment options
       </button>
 
-      {/* ✅ Mobile-only logout */}
       <button
         className="profile-side-item profile-logout-mobile"
         onClick={onLogout}
+        type="button"
       >
         Log out
       </button>
     </aside>
   );
 };
-
-
 
 export default ProfileSidebar;

@@ -96,8 +96,7 @@ const CartPage = () => {
 
   return (
     <div className="cart-page">
-      {/* Header */}
-      <div className="cart-page-header">
+            <div className="cart-page-header">
         <h1>
           <FiShoppingCart className="header-icon" />
           Shopping Cart
@@ -108,8 +107,7 @@ const CartPage = () => {
       </div>
 
       <div className="cart-page-content">
-        {/* Checkout Steps */}
-        <div className="checkout-steps">
+                <div className="checkout-steps">
           {steps.map((step, index) => (
             <div 
               key={step.number} 
@@ -124,10 +122,8 @@ const CartPage = () => {
           ))}
         </div>
 
-        {/* Main Cart Content */}
-        <div className="cart-page-main">
-          {/* Left Column - Cart Items */}
-          <div className="cart-items-section">
+                <div className="cart-page-main">
+                    <div className="cart-items-section">
             <div className="section-header">
               <h2>Your Items ({cartCount})</h2>
               {cartItems.length > 0 && (
@@ -203,8 +199,7 @@ const CartPage = () => {
               </div>
             )}
 
-            {/* Trust Section */}
-            <div className="trust-section">
+                        <div className="trust-section">
               <div className="trust-item">
                 <FiShield />
                 <div>
@@ -236,8 +231,7 @@ const CartPage = () => {
             </div>
           </div>
 
-          {/* Right Column - Order Summary */}
-          <div className="order-summary-section">
+                    <div className="order-summary-section">
             <div className="summary-card">
               <h2>Order Summary</h2>
               
@@ -265,8 +259,7 @@ const CartPage = () => {
                 </div>
               </div>
 
-              {/* Shipping Information Form */}
-              {checkoutStep >= 2 && (
+                            {checkoutStep >= 2 && (
                 <div className="shipping-form">
                   <h3>
                     <FiUser />
@@ -364,8 +357,7 @@ const CartPage = () => {
                 </div>
               )}
 
-              {/* Checkout Button */}
-              <button 
+                            <button 
                 className="checkout-btn-primary"
                 onClick={handleCheckout}
                 disabled={cartItems.length === 0 || isCheckingOut}
@@ -375,8 +367,7 @@ const CartPage = () => {
                 <FiChevronRight />
               </button>
 
-              {/* Payment Methods */}
-              <div className="payment-methods">
+                            <div className="payment-methods">
                 <div className="payment-icons">
                   <span className="payment-icon">💳</span>
                   <span className="payment-icon">🏦</span>
@@ -388,8 +379,7 @@ const CartPage = () => {
                 </p>
               </div>
 
-              {/* Return Policy */}
-              <div className="return-policy">
+                            <div className="return-policy">
                 <h4>
                   <FiCheck />
                   30-Day Satisfaction Guarantee

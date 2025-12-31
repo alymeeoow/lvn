@@ -3,10 +3,7 @@ import { FiXCircle, FiCheckCircle, FiAlertCircle, FiX } from 'react-icons/fi';
 import { GiMedicinePills } from 'react-icons/gi';
 import "../../assets/styles/productModal.css"
 import Button from '../ui/button';
-
-// Product configurations - can be moved to a separate file
 const PRODUCT_CONFIGS = {
-  // Hair Loss Products
   'Hair Loss Oral Medication': {
     title: "Provider-selected oral options",
     subtitle: "With a 3-month supply shipped to your door.",
@@ -173,8 +170,6 @@ const PRODUCT_CONFIGS = {
     disclaimer: "These medications are available by prescription only. The content on this page is for informational purposes and does not replace medical advice. Consult a licensed provider to determine suitability and dosing."
   }
 };
-
-// Default configuration for products not in the config
 const DEFAULT_CONFIG = {
   title: "Product Information",
   sections: [
@@ -215,7 +210,7 @@ const DEFAULT_CONFIG = {
   disclaimer: "Consult your healthcare provider for more information."
 };
 
-// Reusable Components
+
 const PrescriptionOptionsSection = ({ options }) => (
   <div className="modal-section prescription-section">
     <h3 className="modal-section-title">Prescription Options</h3>
@@ -363,8 +358,6 @@ const DefaultSection = ({ type, title, content, items }) => {
 
 const ProductModal = ({ product, onClose, onAddToCart, productImage, productInfo }) => {
   if (!product) return null;
-
-  // Get product configuration or use default
   const productConfig = PRODUCT_CONFIGS[product.name] || 
     (productInfo ? {
       title: product.name,
@@ -443,8 +436,7 @@ const ProductModal = ({ product, onClose, onAddToCart, productImage, productInfo
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={e => e.stopPropagation()}>
        
-        {/* Header with Image and Basic Info */}
-        <div className="modal-header">
+                <div className="modal-header">
           <div className="modal-image-container">
             <img 
               src={productImage} 
@@ -468,10 +460,8 @@ const ProductModal = ({ product, onClose, onAddToCart, productImage, productInfo
           </div>
         </div>
 
-        {/* Body with Dynamic Content */}
-        <div className="modal-body">
-          {/* Product Title/Subtitle */}
-          {productConfig.title && (
+                <div className="modal-body">
+                    {productConfig.title && (
             <div className="modal-section">
               <h3 className="modal-section-title">{productConfig.title}</h3>
               {productConfig.subtitle && (
@@ -483,15 +473,13 @@ const ProductModal = ({ product, onClose, onAddToCart, productImage, productInfo
             </div>
           )}
 
-          {/* Dynamic Sections */}
-          {productConfig.sections.map((section, index) => (
+                    {productConfig.sections.map((section, index) => (
             <React.Fragment key={index}>
               {renderSection(section)}
             </React.Fragment>
           ))}
 
-          {/* Disclaimer */}
-          <div className="modal-section disclaimer-section">
+                    <div className="modal-section disclaimer-section">
             <p className="modal-disclaimer">
               <strong>Disclaimer:</strong> {productConfig.disclaimer}
             </p>
@@ -501,8 +489,7 @@ const ProductModal = ({ product, onClose, onAddToCart, productImage, productInfo
           </div>
         </div>
 
-        {/* Footer with Action Buttons */}
-        <div className="modal-footer">
+                <div className="modal-footer">
           <Button
             onClick={() => onAddToCart(product)}
             variant="primary"

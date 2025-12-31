@@ -1,17 +1,13 @@
-/* =========================================
-   1. Global Layout & Page Background
-   ========================================= */
+
 .categories-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+  background: var(--background);
 
   position: relative;
-  overflow-x: hidden; /* Prevent horizontal scroll */
+  overflow-x: hidden;
 }
 
-/* =========================================
-   2. Main Header (Top Title Area)
-   ========================================= */
+
 .categories-header {
 
   padding: 4rem 1.5rem 2.5rem;
@@ -39,9 +35,7 @@
   line-height: 1.6;
 }
 
-/* =========================================
-   3. Main Content Wrapper
-   ========================================= */
+
 .categories-content {
   display: flex;
   max-width: 1400px;
@@ -52,9 +46,7 @@
   min-height: calc(100vh - 200px);
 }
 
-/* =========================================
-   4. Sidebar (Desktop Styles)
-   ========================================= */
+
 .filters-sidebar {
   width: 280px;
   flex-shrink: 0;
@@ -72,7 +64,7 @@
   scrollbar-width: thin;
 }
 
-/* Scrollbar styling */
+
 .filters-sidebar::-webkit-scrollbar { width: 6px; }
 .filters-sidebar::-webkit-scrollbar-thumb { background: #adb5bd; border-radius: 3px; }
 
@@ -85,7 +77,7 @@
   border-bottom: 1px solid #e9ecef;
 }
 
-/* Hide close button on desktop */
+
 .filters-header .close-filters { display: none; }
 
 .filter-section { margin-bottom: 1.75rem; }
@@ -97,7 +89,7 @@
   margin-bottom: 1rem;
 }
 
-/* Category Buttons */
+
 .category-filters { display: flex; flex-direction: column; gap: 0.625rem; }
 
 .category-filter-btn {
@@ -134,7 +126,7 @@
 }
 .category-filter-btn.active .category-count { background: #495057; color: #fff; }
 
-/* Sort Buttons inside Sidebar */
+
 .sort-options { display: flex; flex-direction: column; gap: 0.5rem; }
 .sort-option-btn {
   padding: 0.75rem;
@@ -147,7 +139,7 @@
 }
 .sort-option-btn.active { border-color: #495057; background: #f8f9fa; color: #212529; font-weight: 600; }
 
-/* Active Filters Tag Area */
+
 .active-filters { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
 .active-filter {
   background: #495057;
@@ -172,12 +164,10 @@
 }
 .clear-filters-btn:hover { background: #dc3545; color: white; }
 
-/* =========================================
-   5. Results Main Area (Header + Grid)
-   ========================================= */
+
 .products-main { flex: 1; min-width: 0; }
 
-/* Results Header (New Flex Layout for Search) */
+
 .results-header {
   display: flex;
   justify-content: space-between;
@@ -188,7 +178,7 @@
   padding: 1rem 1.5rem;
   margin-bottom: 1.5rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  flex-wrap: wrap; /* Allows wrapping on smaller screens */
+  flex-wrap: wrap;
   gap: 1rem;
 }
 
@@ -200,7 +190,7 @@
 }
 .product-count { color: #6c757d; font-weight: 400; font-size: 0.9rem; }
 
-/* Inline Search Container */
+
 .search-container-inline {
   display: flex;
   align-items: center;
@@ -239,12 +229,10 @@
 }
 .clear-search:hover { color: #495057; }
 
-/* =========================================
-   6. Product Grid & Cards
-   ========================================= */
+
 .products-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Default 3 columns */
+  grid-template-columns: repeat(3, 1fr); 
   gap: 1.5rem;
 }
 
@@ -266,7 +254,7 @@
   border-color: #dee2e6;
 }
 
-/* Card Image */
+
 .card-image {
   height: 200px;
   position: relative;
@@ -303,7 +291,7 @@
 .wishlist-btn:hover { transform: scale(1.1); color: #dc3545; }
 .wishlist-btn.active { color: #dc3545; }
 
-/* Card Body */
+
 .card-content {
   padding: 1.25rem;
   flex: 1;
@@ -333,18 +321,18 @@
   color: #212529;
   cursor: pointer;
   line-height: 1.4;
-  /* Limit to 2 lines */
+
 
   -webkit-box-orient: vertical;
   overflow: hidden;
-  height: 2.8em; /* Force height alignment */
+  height: 2.8em;
 }
 
 .product-description {
   font-size: 0.85rem;
   color: #6c757d;
   margin-bottom: 1rem;
-  /* Limit to 2 lines */
+
   display: -webkit-box;
 
   -webkit-box-orient: vertical;
@@ -352,7 +340,7 @@
   height: 2.6em;
 }
 
-/* Rating */
+
 .product-rating { 
   display: flex; 
   align-items: center;
@@ -377,7 +365,7 @@
 }
 
 
-/* Features */
+
 .product-features { margin-bottom: 1rem; flex: 1; }
 .feature-item {
   display: flex;
@@ -388,7 +376,7 @@
 }
 .feature-dot { width: 4px; height: 4px; background: #20c997; border-radius: 50%; margin-right: 6px; }
 
-/* Card Footer */
+
 .card-footer-categories {
   border-top: 1px solid #f1f3f5;
   padding-top: 1rem;

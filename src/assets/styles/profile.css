@@ -1,5 +1,3 @@
-
-
 .profile-page {
   background: var(--background);
   min-height: calc(100vh - 120px);
@@ -12,14 +10,16 @@
   display: grid;
   grid-template-columns: 320px 1fr;
   gap: 26px;
+  align-items: start;
 }
 
+
 .profile-sidebar {
-  background: var(--background-card);
-  border: 1px solid var(--border-light);
-  border-radius: 14px;
+  border-right: 2px solid var(--border-light);
+  min-height: calc(100vh - 120px);
   padding: 18px;
-  box-shadow: var(--shadow-sm);
+  position: sticky;
+  top: 90px; 
   height: fit-content;
 }
 
@@ -57,7 +57,6 @@
   min-width: 0;
 }
 
-
 .profile-card {
   background: var(--background-card);
   border: 1px solid var(--border-light);
@@ -67,9 +66,14 @@
 }
 
 .profile-title {
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
   margin: 0;
+
   font-size: 28px;
-  font-weight: 950;
+  font-weight: 800;
+  letter-spacing: -0.02em;
   color: var(--text-dark);
 }
 
@@ -79,7 +83,6 @@
   font-size: 14px;
   line-height: 1.5;
 }
-
 
 .profile-avatar-wrap {
   display: flex;
@@ -101,12 +104,11 @@
 
 
 .profile-form {
-  max-width: 560px; 
+  max-width: 560px;
   margin: 0 auto;
   display: grid;
   gap: 16px;
 }
-
 
 .profile-field label {
   display: block;
@@ -116,7 +118,6 @@
   color: var(--text-light);
   margin-bottom: 8px;
 }
-
 
 .profile-field input,
 .profile-field select {
@@ -149,7 +150,6 @@
   cursor: not-allowed;
 }
 
-
 .profile-field input::placeholder {
   color: rgba(0, 0, 0, 0.38);
   font-weight: 600;
@@ -161,10 +161,10 @@
   padding-right: 46px;
 }
 
-
 .profile-field.select-wrap {
   position: relative;
 }
+
 .profile-field.select-wrap::after {
   content: "";
   position: absolute;
@@ -183,9 +183,11 @@
 .profile-date {
   position: relative;
 }
+
 .profile-date input {
   padding-right: 44px;
 }
+
 .profile-date-ico {
   position: absolute;
   right: 14px;
@@ -216,12 +218,11 @@
 
 .profile-phone-row {
   display: grid;
-  grid-template-columns: 100px 1fr; 
+  grid-template-columns: 100px 1fr;
   gap: 12px;
   align-items: end;
-  width: 100%; 
+  width: 100%;
 }
-
 
 .profile-code-pill {
   width: 100%;
@@ -231,19 +232,18 @@
   background: transparent;
   display: flex;
   align-items: center;
-  justify-content: center; 
+  justify-content: center;
   gap: 6px;
   padding: 0 10px;
   font-weight: 800;
   color: var(--text-dark);
   box-sizing: border-box;
   text-align: center;
-  min-width: 0; 
+  min-width: 0;
 }
 
-
 .profile-phone {
-  min-width: 0; 
+  min-width: 0;
 }
 
 .profile-phone input {
@@ -292,6 +292,27 @@
 
 
 
+@media (max-width: 980px) {
+  .profile-shell {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .profile-sidebar {
+    position: static;            
+    top: auto;
+    min-height: auto;            
+    height: fit-content;
+    border-right: none;          
+    border: 1px solid var(--border-light);
+    border-radius: 14px;
+    background: var(--background-card);
+    box-shadow: var(--shadow-sm);
+    padding: 14px;
+  }
+}
+
+
 @media (max-width: 768px) {
   .profile-logout-mobile {
     display: block;
@@ -299,27 +320,19 @@
 }
 
 
-
-@media (max-width: 980px) {
-  .profile-shell {
-    grid-template-columns: 1fr;
-  }
-}
-
 @media (max-width: 520px) {
   .profile-card {
     padding: 18px;
   }
+
   .profile-title {
     font-size: 22px;
   }
-  
 
   .profile-phone-row {
     grid-template-columns: 1fr;
     gap: 8px;
   }
-  
 
   .profile-code-pill {
     width: 100%;
@@ -327,9 +340,30 @@
     padding: 0 14px;
   }
 
-
   .profile-field.select-wrap::after {
     top: calc(50% + 11px);
+  }
+
+  
+  .profile-sidebar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .profile-sidebar-title {
+    grid-column: 1 / -1;
+    margin-bottom: 6px;
+  }
+
+  .profile-side-item {
+    margin-bottom: 0;
+    padding: 12px;
+    font-size: 13px;
+  }
+
+  .profile-logout-mobile {
+    grid-column: 1 / -1;
   }
 }
 
@@ -338,11 +372,15 @@
   .profile-form {
     gap: 14px;
   }
-  
+
   .profile-field input,
   .profile-field select,
   .profile-code-pill,
   .profile-phone input {
     height: 52px;
+  }
+
+  .profile-sidebar {
+    grid-template-columns: 1fr;
   }
 }

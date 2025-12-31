@@ -1,0 +1,176 @@
+.addr-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+
+
+  padding: clamp(10px, 2vw, 18px);
+}
+
+
+.addr-modal {
+  width: 100%;
+  max-width: 520px;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+
+
+  padding: clamp(16px, 2.2vw, 22px);
+
+
+  max-height: 90vh;
+  overflow: auto;
+
+
+  -webkit-overflow-scrolling: touch;
+}
+
+
+.addr-modal-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.addr-modal-head h2 {
+  margin: 0;
+  font-size: clamp(18px, 2.2vw, 24px);
+  font-weight: 900;
+}
+
+.addr-modal-close {
+  border: none;
+  background: transparent;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 10px;
+  line-height: 1;
+}
+
+.addr-modal-close:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+
+.addr-modal-sub {
+  margin: 8px 0 16px;
+  color: rgba(15, 23, 42, 0.65);
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+
+.addr-search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1.5px solid rgba(15, 23, 42, 0.15);
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin-bottom: 14px;
+  opacity: 0.75;
+}
+
+.addr-search input {
+  border: none;
+  outline: none;
+  width: 100%;
+  font-weight: 600;
+  background: transparent;
+}
+
+
+.addr-form {
+  display: grid;
+  gap: 12px;
+}
+
+.addr-form input,
+.addr-form select {
+  width: 100%;
+  height: 52px;
+  border-radius: 12px;
+  border: 1.5px solid rgba(15, 23, 42, 0.2);
+  padding: 0 14px;
+  font-weight: 700;
+  box-sizing: border-box;
+}
+
+.addr-form input:focus,
+.addr-form select:focus {
+  outline: none;
+  border-color: rgba(15, 23, 42, 0.45);
+  box-shadow: 0 0 0 4px rgba(15, 23, 42, 0.08);
+}
+
+.addr-form select:disabled {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+
+.addr-save-btn {
+  margin-top: 18px;
+  width: 100%;
+  height: 52px;
+  border-radius: 999px;
+  font-weight: 800;
+}
+
+
+@media (max-width: 768px) {
+  .addr-modal {
+    max-width: 560px;
+    border-radius: 16px;
+  }
+}
+
+
+@media (max-width: 480px) {
+  .addr-modal {
+    max-width: 100%;
+    border-radius: 14px;
+  }
+
+  .addr-search {
+    padding: 10px 12px;
+  }
+
+  .addr-form input,
+  .addr-form select {
+    height: 46px;
+    border-radius: 12px;
+    padding: 0 12px;
+    font-size: 14px;
+  }
+
+  .addr-save-btn {
+    height: 46px;
+    font-size: 14px;
+  }
+}
+
+
+@media (max-width: 360px) {
+  .addr-modal-sub {
+    font-size: 13px;
+  }
+
+  .addr-save-btn {
+    height: 44px;
+  }
+}
+
+
+@media (max-height: 520px) {
+  .addr-modal {
+    max-height: 88vh;
+  }
+}

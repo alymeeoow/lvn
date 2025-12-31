@@ -1,9 +1,8 @@
-// components/context/notifContext.jsx
 import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
 
 const NotifContext = createContext(null);
 
-const STORAGE_KEY = "notifications"; // array of {id, title, message, createdAt, read}
+const STORAGE_KEY = "notifications";
 
 function safeParse(raw, fallback) {
   try {
@@ -17,7 +16,6 @@ export const NotifProvider = ({ children }) => {
   const [notifications, setNotifications] = useState(() => {
     const raw = localStorage.getItem(STORAGE_KEY);
     const initial = safeParse(raw, []);
-    // seed demo if empty (optional)
     return Array.isArray(initial) ? initial : [];
   });
 
@@ -50,8 +48,6 @@ export const NotifProvider = ({ children }) => {
   };
 
   const clearNotif = () => setNotifications([]);
-
-  // handy if you want to push notifications elsewhere
   const addNotif = (payload) => {
     const id = payload.id || `n-${Date.now()}`;
     const item = {

@@ -1,8 +1,8 @@
-import React from 'react';
-import '../../assets/styles/footer.css';
-import Mlogo from '../../assets/images/logo/mLogo.png'; 
-import { 
-  FiStar,
+import React from "react";
+import { NavLink } from "react-router-dom";
+import "../../assets/styles/footer.css";
+import Mlogo from "../../assets/images/logo/mLogo.png";
+import {
   FiFacebook,
   FiInstagram,
   FiLinkedin,
@@ -10,89 +10,81 @@ import {
   FiMail,
   FiPhone,
   FiArrowRight,
-  FiCheckCircle
-} from 'react-icons/fi';
-import {
-  FaPills,
-
-
-
-  FaUserCheck,
-  FaHospital,
-  FaXTwitter
-} from 'react-icons/fa6';
-import { MdLocalHospital } from 'react-icons/md';
+  FiCheckCircle,
+} from "react-icons/fi";
+import { FaXTwitter } from "react-icons/fa6";
 
 const Footer = () => {
   return (
     <footer className="footer">
       <div className="footer-content">
-        {/* Company Logo & Description */}
-        <div className="footer-section">
+
+                <div className="footer-section">
           <div className="logo-section-footer">
-           <div className="footer-logo">
-  <div className="logo-image">
-    <img 
-      src={Mlogo} 
-      alt="Aaron Arrendendo Logo" 
-      className="logo-img"
-    />
-  </div>
-  <div className="logo-text">
-    <div className="logo-main">
-      <span className="logo-primary">Aaron Arrendendo</span>
-    </div>
-    
-  </div>
-</div>
+            <div className="footer-logo">
+              <div className="logo-image">
+                <img
+                  src={Mlogo}
+                  alt="Aaron Arredondo Logo"
+                  className="logo-img"
+                />
+              </div>
+              <div className="logo-text">
+                <div className="logo-main">
+                  <span className="logo-primary">Aaron Arredondo</span>
+                </div>
+              </div>
+            </div>
           </div>
+
           <p className="footer-text">
-          Delivering secure, patient-first healthcare solutions
+            Delivering secure, patient-first healthcare solutions
           </p>
-         
         </div>
-        
-        {/* Quick Links */}
-        <div className="footer-section">
+
+                <div className="footer-section">
           <h4 className="footer-subtitle">
             <FiArrowRight className="subtitle-icon" />
             Quick Links
           </h4>
+
           <ul className="footer-links">
             <li>
-              <a href="#">
+              <NavLink to="/">
                 <FiCheckCircle className="link-icon" />
-               Home
-              </a>
+                Home
+              </NavLink>
             </li>
+
             <li>
-              <a href="#">
+              <NavLink to="/categories">
                 <FiCheckCircle className="link-icon" />
-              Categories
-              </a>
+                Categories
+              </NavLink>
             </li>
+
             <li>
-              <a href="#">
+              <NavLink to="/bookings">
                 <FiCheckCircle className="link-icon" />
-              Bookings
-              </a>
+                Bookings
+              </NavLink>
             </li>
+
             <li>
-              <a href="#">
+              <NavLink to="/faq">
                 <FiCheckCircle className="link-icon" />
                 FAQ
-              </a>
+              </NavLink>
             </li>
-            
           </ul>
         </div>
-        
-        {/* Contact Information */}
-        <div className="footer-section">
+
+                <div className="footer-section">
           <h4 className="footer-subtitle">
             <FiPhone className="subtitle-icon" />
             Contact Us
           </h4>
+
           <ul className="footer-links contact-links">
             <li>
               <a href="mailto:support@lvn.com" className="contact-link">
@@ -103,6 +95,7 @@ const Footer = () => {
                 </div>
               </a>
             </li>
+
             <li>
               <a href="tel:5551234567" className="contact-link">
                 <FiPhone className="contact-icon" />
@@ -114,17 +107,17 @@ const Footer = () => {
             </li>
           </ul>
         </div>
-        
-        {/* Social Media */}
-        <div className="footer-section">
+
+                <div className="footer-section">
           <h4 className="footer-subtitle">
             <FiFacebook className="subtitle-icon" />
             Stay Connected
           </h4>
+
           <p className="social-text">
             Follow us for health tips, updates, and special offers.
           </p>
-          
+
           <div className="social-links">
             <a href="#" className="social-link facebook" aria-label="Facebook">
               <FiFacebook />
@@ -144,32 +137,21 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      
-      <div className="footer-bottom">
+
+            <div className="footer-bottom">
         <div className="footer-bottom-content">
           <p className="copyright">
             © 2024 ProHealth Footer™ Personalized Healthcare. All rights reserved.
           </p>
+
           <div className="legal-links">
-            <a href="#">
-              <div className="legal-icon" />
-              Privacy Policy
-            </a>
+            <NavLink to="/privacy-policy">Privacy Policy</NavLink>
             <span className="divider">•</span>
-            <a href="#">
-              <div className="legal-icon" />
-              Terms of Service
-            </a>
+            <NavLink to="/terms">Terms of Service</NavLink>
             <span className="divider">•</span>
-            <a href="#">
-              <div className="legal-icon" />
-              Cookie Policy
-            </a>
+            <NavLink to="/cookies">Cookie Policy</NavLink>
             <span className="divider">•</span>
-            <a href="#">
-              <div className="legal-icon" />
-              Accessibility
-            </a>
+            <NavLink to="/accessibility">Accessibility</NavLink>
           </div>
         </div>
       </div>

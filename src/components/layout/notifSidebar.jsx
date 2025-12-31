@@ -1,4 +1,3 @@
-// components/layout/notifSidebar.jsx
 import React, { useEffect } from "react";
 import { FiBell, FiX, FiTrash2, FiCheckCircle } from "react-icons/fi";
 import { useNotif } from "../context/notifContext";
@@ -15,8 +14,6 @@ const NotifSidebar = () => {
     removeNotif,
     clearNotif,
   } = useNotif();
-
-  // Disable body scroll when notif is open (same pattern as cart)
   useEffect(() => {
     if (!isNotifOpen) return;
 
@@ -48,13 +45,10 @@ const NotifSidebar = () => {
 
   return (
     <>
-      {/* Overlay */}
-      <div className={`cart-overlay ${isNotifOpen ? "active" : ""}`} onClick={closeNotif} />
+            <div className={`cart-overlay ${isNotifOpen ? "active" : ""}`} onClick={closeNotif} />
 
-      {/* Sidebar (reuse cart-sidebar classes) */}
-      <div className={`cart-sidebar ${isNotifOpen ? "open" : ""}`}>
-        {/* Header */}
-        <div className="cart-header">
+            <div className={`cart-sidebar ${isNotifOpen ? "open" : ""}`}>
+                <div className="cart-header">
           <div className="cart-title">
             <FiBell className="cart-header-icon" />
             <h2>Notifications</h2>
@@ -85,8 +79,7 @@ const NotifSidebar = () => {
           </div>
         </div>
 
-        {/* Content */}
-        <div className="cart-content">
+                <div className="cart-content">
           {notifications.length === 0 ? (
             <div className="empty-cart">
               <FiBell className="empty-cart-icon" />

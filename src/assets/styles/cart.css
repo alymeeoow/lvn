@@ -1,4 +1,4 @@
-/* ===== CART ICON ===== */
+
 .cart-icon-btn {
   position: relative;
   background: none;
@@ -44,7 +44,7 @@
   50% { transform: scale(1.2); }
 }
 
-/* ===== CART SIDEBAR ===== */
+
 .cart-overlay {
   position: fixed;
   top: 0;
@@ -145,7 +145,7 @@
   padding: 1.5rem;
 }
 
-/* Empty Cart */
+
 .empty-cart {
   text-align: center;
   padding: 3rem 1rem;
@@ -192,7 +192,7 @@
   transform: translateY(-2px);
 }
 
-/* Cart Items */
+
 .cart-items {
   margin-bottom: 1.5rem;
 }
@@ -335,7 +335,7 @@
   color: #fa5252;
 }
 
-/* Order Summary */
+
 .order-summary {
   background: #f8f9fa;
   border-radius: 12px;
@@ -387,7 +387,7 @@
   margin: 1rem 0;
 }
 
-/* Trust Badges */
+
 .trust-badges {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -425,7 +425,7 @@
   line-height: 1.2;
 }
 
-/* Cart Actions */
+
 .cart-actions {
   display: flex;
   flex-direction: column;
@@ -480,7 +480,7 @@
   color: #dc3545;
 }
 
-/* ===== CART PAGE ===== */
+
 .cart-page {
   min-height: 100vh;
   background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
