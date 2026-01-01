@@ -1,4 +1,4 @@
-
+// src/components/layout/header.jsx
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import {
@@ -19,16 +19,17 @@ import { useNotif } from "../context/notifContext";
 import logoImage from "../../assets/images/logo/mLogo.png";
 import LoginButton from "../ui/button";
 
-const Header = () => {
+const Header = ({ comingSoonMode = false }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const { cartCount, openCart } = useCart();
   const { notifCount, openNotif } = useNotif();
 
-
   const isAuthPage =
     location.pathname === "/login" || location.pathname === "/signup";
 
+  // ✅ Coming soon mode behaves like "no nav/actions"
+  const hideNavAndActions = isAuthPage || comingSoonMode;
 
   const [authUser, setAuthUser] = useState(null);
 
@@ -45,12 +46,10 @@ const Header = () => {
   useEffect(() => {
     setAuthUser(readAuthUser());
 
-   
     const onStorage = (e) => {
       if (e.key === "authUser") setAuthUser(readAuthUser());
     };
     window.addEventListener("storage", onStorage);
-
 
     const onAuthChanged = () => setAuthUser(readAuthUser());
     window.addEventListener("auth:changed", onAuthChanged);
@@ -95,7 +94,6 @@ const Header = () => {
     navigate("/", { replace: true });
   };
 
-
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
 
@@ -119,9 +117,8 @@ const Header = () => {
 
   const goProfile = () => {
     setMenuOpen(false);
-    navigate("/profile"); 
+    navigate("/profile");
   };
-
 
   const mobileNavItems = [
     navItems[0],
@@ -137,7 +134,6 @@ const Header = () => {
 
   return (
     <>
- 
       <header className="header">
         <div className="header-top">
           <div
@@ -155,8 +151,8 @@ const Header = () => {
             <span className="logo-name">Aaron Arredondo</span>
           </div>
 
-     
-          {!isAuthPage && (
+          {/* ✅ Desktop nav hidden on auth pages OR coming soon mode */}
+          {!hideNavAndActions && (
             <nav className="desktop-nav">
               <ul>
                 {navItems.map((item) => (
@@ -173,10 +169,9 @@ const Header = () => {
             </nav>
           )}
 
-    
           <div className="header-actions">
-         
-            {!isAuthPage && isLoggedIn && (
+            {/* ✅ Notifications hidden on auth pages OR coming soon mode */}
+            {!hideNavAndActions && isLoggedIn && (
               <button
                 className="cart-icon-btn"
                 onClick={openNotif}
@@ -190,7 +185,8 @@ const Header = () => {
               </button>
             )}
 
-                        {!isAuthPage && (
+            {/* ✅ Cart hidden on auth pages OR coming soon mode */}
+            {!hideNavAndActions && (
               <button
                 className="cart-icon-btn"
                 onClick={openCart}
@@ -204,13 +200,13 @@ const Header = () => {
               </button>
             )}
 
-          
-            {!isAuthPage && !isLoggedIn && (
+            {/* ✅ Login button hidden on auth pages OR coming soon mode */}
+            {!hideNavAndActions && !isLoggedIn && (
               <LoginButton onClick={handleLoginClick} className="desktop-only" />
             )}
 
-           
-            {!isAuthPage && isLoggedIn && (
+            {/* ✅ Avatar menu hidden on auth pages OR coming soon mode */}
+            {!hideNavAndActions && isLoggedIn && (
               <div
                 className="desktop-only"
                 ref={menuRef}
@@ -266,7 +262,8 @@ const Header = () => {
         </div>
       </header>
 
-            {!isAuthPage && (
+      {/* ✅ Bottom mobile nav hidden on auth pages OR coming soon mode */}
+      {!hideNavAndActions && (
         <nav className="bottom-nav mobile-only" aria-label="Main navigation">
           {mobileNavItems.map((item) => (
             <NavLink
