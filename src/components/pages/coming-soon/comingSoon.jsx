@@ -1,45 +1,64 @@
-import { useState } from "react";
-import logoImage from "../../../assets/images/logo/mLogo.png";
+import { useEffect, useRef, useState } from "react";
 import "../../../assets/styles/comingSoon.css";
 
 export default function ComingSoon() {
   const [open, setOpen] = useState(false);
+  const [showBanner, setShowBanner] = useState(false);
+  const timerRef = useRef(null);
+
   const toggle = () => setOpen((v) => !v);
+
+  useEffect(() => {
+
+    if (timerRef.current) clearTimeout(timerRef.current);
+
+    if (open) {
+   
+      setShowBanner(false);
+      timerRef.current = setTimeout(() => {
+        setShowBanner(true);
+      }, 700)
+    } else {
+
+      setShowBanner(false);
+    }
+
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, [open]);
 
   return (
     <div className="cs-page">
       <div className={`cs fullscreen ${open ? "open" : "closed"}`}>
-
         <main className="cs-scene">
           <div className="cs-stage">
             <div className="cs-wrap">
-       
+              {/* Bubble */}
               <div className={`cs-bubble ${open ? "hide" : ""}`}>
                 <span>Click me!</span>
               </div>
 
-           
-              <section className={`cs-banner ${open ? "show" : ""}`} aria-hidden={!open}>
+              <section
+                className={`cs-banner ${showBanner ? "show" : ""}`}
+                aria-hidden={!showBanner}
+              >
                 <div className="cs-bannerContent">
-            
                   <div className="cs-cross cs-cross--tl" />
                   <div className="cs-cross cs-cross--tr" />
                   <div className="cs-cross cs-cross--bl" />
                   <div className="cs-cross cs-cross--br" />
 
-               
                   <div className="cs-mini-vial cs-vial--tl" />
                   <div className="cs-mini-vial cs-vial--br" />
 
-             
                   <h1 className="cs-bannerTitle">
                     <span>COMING</span>
-                    <span>SOON</span>
+                    <span>SOON!</span>
                   </h1>
 
-         
                   <p className="cs-bannerSub">
-                    A new era of <br /> medical wellness
+                    A New Era of <br /> Medical Wellness
                   </p>
 
                   <div className="cs-bannerBrand">
@@ -49,7 +68,7 @@ export default function ComingSoon() {
                 </div>
               </section>
 
-         
+              {/* Vial */}
               <svg viewBox="0 0 900 900" className="cs-vial" aria-hidden="true">
                 <defs>
                   <linearGradient id="capTop" x1="0" y1="0" x2="0" y2="1">
@@ -136,6 +155,7 @@ export default function ComingSoon() {
                 </g>
               </svg>
 
+              {/* Click areas */}
               <button
                 type="button"
                 className="cs-hit cs-hitCap"

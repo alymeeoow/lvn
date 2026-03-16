@@ -30,6 +30,13 @@ import Payment from "./components/pages/account/payment";
 // ===== Coming Soon =====
 import ComingSoon from "./components/pages/coming-soon/comingSoon";
 
+// ===== Scroll to top =====
+
+
+import ScrollToTop from "../src/components/ui/scrollToTop"
+
+
+
 import "./App.css";
 import "./assets/styles/cart.css";
 
@@ -83,8 +90,8 @@ export default function App() {
     <CartProvider>
       <NotifProvider>
         <Router>
-
-          <ComingSoonApp />
+ <ScrollToTop />
+          <FullApp />
 
         </Router>
       </NotifProvider>
